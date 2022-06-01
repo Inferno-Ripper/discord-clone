@@ -1,0 +1,23 @@
+.channel {
+	display: flex;
+	align-items: center;
+	padding: 8px 25px;
+	gap: 7px;
+	color: gray;
+	cursor: pointer;
+}
+
+.channel__hash {
+	font-size: 29px;
+	font-weight: 700;
+}
+
+.channel__name {
+	font-size: 16px;
+	font-weight: 700;
+}
+
+.channel:hover {
+	background-color: #363a3f;
+	color: white;
+}

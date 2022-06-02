@@ -1,0 +1,148 @@
+.chatHeader {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 10px;
+}
+
+/* chatHeader left */
+
+.chatHeader__left {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 15px;
+}
+
+.chatHeader__hash {
+	color: gray;
+	font-size: 19px;
+	font-weight: 700;
+}
+
+/* chatHeader right */
+
+.chatHeader__right {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	color: gray;
+}
+
+.chatHeader__right > .MuiSvgIcon-root {
+	cursor: pointer;
+}
+
+/* chatHeader right input */
+
+.chatHeader__rightInputSearch {
+	display: flex;
+	align-items: center;
+	border-radius: 4px;
+	position: relative;
+	padding: 5px 10px;
+}
+
+.chatHeader__rightInput {
+	display: none;
+}
+
+.chatHeader__rightInputSearchIcon {
+	position: absolute;
+	right: 5px;
+	cursor: pointer;
+}
+
+@media (min-width: 768px) {
+	/* chatHeader left */
+
+	.chatHeader__left {
+		font-size: 16px;
+	}
+
+	.chatHeader__hash {
+		color: gray;
+		font-size: 29px;
+		font-weight: 700;
+	}
+
+	/* chatHeader right */
+
+	.chatHeader__right {
+		gap: 20px;
+	}
+
+	/* chatHeader right input */
+
+	.chatHeader__rightInputSearch {
+		height: 20px;
+		width: 150px;
+		background-color: #2f3135;
+	}
+
+	.chatHeader__rightInput {
+		border: none;
+		outline: none;
+		color: white;
+		background: transparent;
+		display: inline;
+	}
+}
+
+@media (min-width: 1024px) {
+	/* chatHeader left */
+
+	.chatHeader__left {
+		font-size: 20px;
+	}
+
+	/* chatHeader right */
+
+	.chatHeader__right {
+		gap: 30px;
+	}
+
+	/* chatHeader right input */
+
+	.chatHeader__rightInputSearch {
+		height: 20px;
+		width: 200px;
+		background-color: #2f3135;
+	}
+
+	.chatHeader__rightInput {
+		border: none;
+		outline: none;
+		color: white;
+		background: transparent;
+	}
+}
+
+@media (min-width: 1280px) {
+	/* chatHeader left */
+
+	.chatHeader__left {
+		font-size: 25px;
+	}
+
+	/* chatHeader right */
+
+	.chatHeader__right {
+		gap: 50px;
+	}
+
+	/* chatHeader right input */
+
+	.chatHeader__rightInputSearch {
+		height: 20px;
+		width: 250px;
+		background-color: #2f3135;
+	}
+
+	.chatHeader__rightInput {
+		border: none;
+		outline: none;
+		color: white;
+		background: transparent;
+	}
+}

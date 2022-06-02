@@ -28,7 +28,7 @@ const Sidebar = () => {
 			{/* sidebar channels text*/}
 			<div className='sidebar__channelText'>
 				<div className='sidebar__channelTextLeft'>
-					<ExpandMoreIcon /> <p>Channels </p>
+					<ExpandMoreIcon /> <p>Channels</p>
 				</div>
 				<div className='sidebar__channelTextRight'>
 					<AddIcon />
@@ -50,7 +50,7 @@ const Sidebar = () => {
 					<SignalCellularAltIcon className='sidebar__connectionSignal' />
 					<div>
 						<p className='sidebar__connectionSignal'>Voice Connected</p>
-						<p>Stream</p>
+						<p className='sidebar__connectionLeftStreamText'>Stream</p>
 					</div>
 				</div>
 				<div className='sidebar__connectionRight'>
@@ -70,7 +70,7 @@ const Sidebar = () => {
 						<h1 className='sidebar__profileLeftUserName'>
 							<span>@</span>userName
 						</h1>
-						<p>
+						<p className='sidebar__profileLeftUserTag'>
 							<span>#</span>usertag
 						</p>
 					</div>

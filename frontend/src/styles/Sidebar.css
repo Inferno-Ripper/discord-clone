@@ -1,5 +1,5 @@
 .sidebar {
-	width: 33vw;
+	width: 50vw;
 	height: 100vh;
 	background-color: #2f3135;
 	position: sticky;
@@ -11,7 +11,7 @@
 
 @media (min-width: 1280px) {
 	.sidebar {
-		width: 25vw;
+		width: 30vw;
 	}
 }
 
@@ -47,7 +47,7 @@
 }
 
 .sidebar__channelTextLeft > p {
-	font-size: 18px;
+	font-size: 14px;
 	font-weight: 700;
 }
 
@@ -120,6 +120,8 @@
 	border-radius: 50%;
 	width: 30px;
 	height: 30px;
+	object-fit: contain;
+	cursor: pointer;
 }
 
 .sidebar__profileLeft {
@@ -160,6 +162,15 @@
 
 	.sidebar__channelText {
 		padding: 16px 10px;
+	}
+
+	/* sidebar channels */
+
+	/* sidebar channels text */
+
+	.sidebar__channelTextLeft > p {
+		font-size: 18px;
+		font-weight: 700;
 	}
 
 	/* sidebar info */

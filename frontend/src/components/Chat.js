@@ -7,6 +7,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 import GifIcon from '@mui/icons-material/Gif';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
+import Messages from './Messages';
 
 const Chat = () => {
 	return (
@@ -26,6 +27,8 @@ const Chat = () => {
 					<EmojiEmotionsIcon />
 				</form>
 			</div>
+
+			<Messages />
 		</div>
 	);
 };

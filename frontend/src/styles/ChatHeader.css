@@ -3,6 +3,11 @@
 	align-items: center;
 	justify-content: space-between;
 	padding: 10px;
+	height: 70px;
+	margin-bottom: 25px;
+	position: relative;
+	z-index: 10000;
+	background-color: #363a3f;
 }
 
 /* chatHeader left */

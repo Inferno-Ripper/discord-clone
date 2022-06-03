@@ -7,6 +7,7 @@ const initialState = {
 const generateRandomNumbers = () => {
 	let randomNumbers = [];
 
+	// generates 5 random numbers
 	for (let i = 0; i < 5; i++) {
 		randomNumbers.push(Math.floor(Math.random() * 9));
 	}

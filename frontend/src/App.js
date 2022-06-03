@@ -17,13 +17,13 @@ function App() {
 		<>
 			<div className='App'>
 				{/* IF user data is not there display the Login Page ELSE display the Home Page */}
-				{user ? (
+				{!user ? (
+					<Login />
+				) : (
 					<>
 						<Sidebar />
 						<Chat />
 					</>
-				) : (
-					<Login />
 				)}
 			</div>
 		</>

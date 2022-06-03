@@ -1,0 +1,51 @@
+.message {
+	padding: 20px;
+	border-top: 1px solid rgb(85, 85, 85);
+	border-bottom: 1px solid rgb(85, 85, 85);
+	display: grid;
+	grid-template-columns: 50px 80%;
+	grid-template-areas:
+		'image nameTime'
+		' image message';
+}
+
+.message__image {
+	border-radius: 50%;
+	width: 30px;
+	height: 30px;
+	object-fit: contain;
+	cursor: pointer;
+	grid-area: image;
+}
+
+.message__nameTime {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	grid-area: nameTime;
+}
+.message__time {
+	font-size: 14px;
+}
+
+.message__message {
+	grid-area: message;
+	margin-top: 7px;
+	width: 100%;
+	font-size: 12px;
+}
+
+@media (min-width: 1024px) {
+	.message {
+		grid-template-columns: 70px 95%;
+	}
+
+	.message__image {
+		width: 50px;
+		height: 50px;
+	}
+
+	.message__message {
+		font-size: 16px;
+	}
+}

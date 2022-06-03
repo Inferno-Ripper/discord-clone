@@ -11,8 +11,18 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import MicIcon from '@mui/icons-material/Mic';
 import HeadsetMicIcon from '@mui/icons-material/HeadsetMic';
 import SettingsIcon from '@mui/icons-material/Settings';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout, selectUser } from '../features/userSlice';
 
 const Sidebar = () => {
+	const user = useSelector(selectUser);
+
+	const dispatch = useDispatch();
+
+	const signOut = () => {
+		dispatch(logout());
+	};
+
 	return (
 		<div className='sidebar'>
 			{/* sidebar header */}
@@ -62,16 +72,16 @@ const Sidebar = () => {
 			<div className='sidebar__profile'>
 				<div className='sidebar__profileLeft'>
 					<img
-						src='https://images.pexels.com/videos/3045163/free-video-3045163.jpg?auto=compress&cs=tinysrgb&dpr=1&w=500'
+						onClick={signOut}
+						src={user.photo}
 						alt=''
 						className='sidebar__profileLogo'
 					/>
 					<div>
-						<h1 className='sidebar__profileLeftUserName'>
-							<span>@</span>userName
-						</h1>
+						<h1 className='sidebar__profileLeftUserName'>{user.userName}</h1>
 						<p className='sidebar__profileLeftUserTag'>
-							<span>#</span>usertag
+							<span>#</span>
+							{user.userTag}
 						</p>
 					</div>
 				</div>

@@ -3,7 +3,7 @@ import React from 'react';
 
 const Channel = ({ channelName }) => {
 	return (
-		<div class='channel'>
+		<div className='channel'>
 			<span className='channel__hash'>#</span>
 			<p className='channel__name'>{channelName}</p>
 		</div>

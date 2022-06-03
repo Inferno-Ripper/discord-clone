@@ -20,3 +20,7 @@ body {
 	color: white;
 	overflow: hidden;
 }
+
+.MuiSvgIcon-root:hover {
+	color: white;
+}

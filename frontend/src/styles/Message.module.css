@@ -9,7 +9,7 @@
 		' image message';
 }
 
-.message__image {
+.image {
 	border-radius: 50%;
 	width: 30px;
 	height: 30px;
@@ -18,17 +18,17 @@
 	grid-area: image;
 }
 
-.message__nameTime {
+.nameAndTime {
 	display: flex;
 	align-items: center;
 	gap: 20px;
 	grid-area: nameTime;
 }
-.message__time {
+.time {
 	font-size: 14px;
 }
 
-.message__message {
+.messageText {
 	grid-area: message;
 	margin-top: 7px;
 	width: 100%;
@@ -40,12 +40,12 @@
 		grid-template-columns: 70px 95%;
 	}
 
-	.message__image {
+	.image {
 		width: 50px;
 		height: 50px;
 	}
 
-	.message__message {
+	.messageText {
 		font-size: 16px;
 	}
 }

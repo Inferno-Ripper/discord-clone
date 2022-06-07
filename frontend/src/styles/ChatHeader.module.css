@@ -30,11 +30,11 @@
 .chatHeader__right {
 	display: flex;
 	align-items: center;
-	gap: 20px;
+	gap: 15px;
 	color: gray;
 }
 
-.chatHeader__right > .MuiSvgIcon-root {
+.chatHeader__right > * {
 	cursor: pointer;
 }
 

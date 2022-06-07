@@ -1,10 +1,10 @@
 import React from 'react';
-import '../styles/Messages.css';
+import styles from '../styles/Messages.module.css';
 import Message from './Message';
 
 const Messages = () => {
 	return (
-		<div className='messages'>
+		<div className={styles.messages}>
 			<Message />
 		</div>
 	);

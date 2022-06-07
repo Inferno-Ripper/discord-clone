@@ -1,5 +1,5 @@
 // stylesheet
-import './styles/App.css';
+import styles from './styles/App.module.css';
 // components
 import Sidebar from './components/Sidebar';
 import Chat from './components/Chat';
@@ -7,7 +7,7 @@ import Login from './components/Login';
 
 // redux
 import { selectUser } from './features/userSlice';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 function App() {
 	// getting the user data from redux
@@ -15,7 +15,7 @@ function App() {
 
 	return (
 		<>
-			<div className='App'>
+			<div className={styles.app}>
 				{/* IF user data is not there display the Login Page ELSE display the Home Page */}
 				{!user ? (
 					<Login />

@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/Chat.css';
+import styles from '../styles/Chat.module.css';
 import ChatHeader from './ChatHeader';
 
 // icons
@@ -11,17 +11,17 @@ import Messages from './Messages';
 
 const Chat = () => {
 	return (
-		<div className='chat'>
+		<div className={styles.chat}>
 			<ChatHeader />
 
-			<div className='chat__inputField'>
-				<form className='chat__form'>
+			<div className={styles.inputField}>
+				<form className={styles.form}>
 					<AddCircleIcon />
 					<input
 						placeholder='message #channelname'
-						className='chat__formInput'
+						className={styles.formInput}
 					/>
-					<button type='submit' className='chat__formButton'></button>
+					<button type='submit' className={styles.formButton}></button>
 					<CardGiftcardIcon />
 					<GifIcon />
 					<EmojiEmotionsIcon />

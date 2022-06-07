@@ -21,6 +21,10 @@ body {
 	overflow: hidden;
 }
 
+.MuiSvgIcon-root {
+	cursor: pointer;
+}
+
 .MuiSvgIcon-root:hover {
 	color: white;
 }

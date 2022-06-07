@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/Sidebar.css';
+import styles from '../styles/Sidebar.module.css';
 
 // icons
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -24,29 +24,29 @@ const Sidebar = () => {
 	};
 
 	return (
-		<div className='sidebar'>
+		<div className={styles.sidebar}>
 			{/* sidebar header */}
-			<div className='sidebar__header'>
+			<div className={styles.header}>
 				<img
 					src='./assets/discord-logo.png'
 					alt=''
-					className='sidebar__headerLogo'
+					className={styles.headerLogo}
 				/>
 				<ExpandMoreIcon />
 			</div>
 			{/* sidebar channels */}
 			{/* sidebar channels text*/}
-			<div className='sidebar__channelText'>
-				<div className='sidebar__channelTextLeft'>
+			<div className={styles.channelText}>
+				<div className={styles.channelTextLeft}>
 					<ExpandMoreIcon /> <p>Channels</p>
 				</div>
-				<div className='sidebar__channelTextRight'>
+				<div className={styles.channelTextRight}>
 					<AddIcon />
 				</div>
 			</div>
 
 			{/* sidebar channels */}
-			<div className='sidebar__channels'>
+			<div className={styles.channels}>
 				<Channel channelName={'Youtube'} />
 				<Channel channelName={'Twitch'} />
 				<Channel channelName={'Discord'} />
@@ -55,38 +55,38 @@ const Sidebar = () => {
 			{/* sidebar info */}
 
 			{/* sidebar connnection */}
-			<div className='sidebar__connection'>
-				<div className='sidebar__connectionLeft'>
-					<SignalCellularAltIcon className='sidebar__connectionSignal' />
+			<div className={styles.connection}>
+				<div className={styles.connectionLeft}>
+					<SignalCellularAltIcon className={styles.connectionSignalLogo} />
 					<div>
-						<p className='sidebar__connectionSignal'>Voice Connected</p>
-						<p className='sidebar__connectionLeftStreamText'>Stream</p>
+						<p className={styles.connectionSignal}>Voice Connected</p>
+						<p className={styles.connectionLeftStreamText}>Stream</p>
 					</div>
 				</div>
-				<div className='sidebar__connectionRight'>
+				<div className={styles.connectionRight}>
 					<InfoOutlinedIcon />
 					<PhoneIcon />
 				</div>
 			</div>
 
-			<div className='sidebar__profile'>
-				<div className='sidebar__profileLeft'>
+			<div className={styles.profile}>
+				<div className={styles.profileLeft}>
 					<img
 						onClick={signOut}
 						src={user.photo}
 						alt=''
-						className='sidebar__profileLogo'
+						className={styles.profileLogo}
 					/>
 					<div>
-						<h1 className='sidebar__profileLeftUserName'>{user.userName}</h1>
-						<p className='sidebar__profileLeftUserTag'>
+						<h1 className={styles.profileLeftUserName}>{user.userName}</h1>
+						<p className={styles.profileLeftUserTag}>
 							<span>#</span>
 							{user.userTag}
 						</p>
 					</div>
 				</div>
 
-				<div className='sidebar__profileRight'>
+				<div className={styles.profileRight}>
 					<MicIcon />
 					<HeadsetMicIcon />
 					<SettingsIcon />

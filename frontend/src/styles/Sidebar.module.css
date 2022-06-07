@@ -16,7 +16,7 @@
 }
 
 /*  sidebar header */
-.sidebar__header {
+.header {
 	display: flex;
 	justify-content: space-between;
 	padding: 16px 5px;
@@ -24,7 +24,7 @@
 	border-bottom: 3px solid #26282c;
 }
 
-.sidebar__headerLogo {
+.headerLogo {
 	width: 100px;
 	object-fit: contain;
 }
@@ -32,40 +32,40 @@
 /* sidebar channels */
 
 /* sidebar channels text */
-.sidebar__channelText {
+.channelText {
 	display: flex;
 	padding: 16px 5px;
 	justify-content: space-between;
 	align-items: center;
 }
 
-.sidebar__channelTextLeft {
+.channelTextLeft {
 	display: flex;
 	align-items: center;
 	color: gray;
 	gap: 5px;
 }
 
-.sidebar__channelTextLeft > p {
+.channelTextLeft > p {
 	font-size: 14px;
 	font-weight: 700;
 }
 
-.sidebar__channelTextRight > .MuiSvgIcon-root {
+.channelTextRight > .MuiSvgIcon-root {
 	font-size: 27px;
 	cursor: pointer;
 	padding-top: 5px;
 }
 
 /* sidebar channels */
-.sidebar__channels {
+.channels {
 	flex: 1;
 }
 
 /* sidebar info */
 
 /* sidebar connnection */
-.sidebar__connection {
+.connection {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -75,40 +75,51 @@
 	border-bottom: 1px solid gray;
 }
 
-.sidebar__connectionSignal {
+.connectionSignal {
 	color: #4fb185;
 	font-size: 10px;
 	font-weight: 600;
 	cursor: default;
 }
 
-.sidebar__connectionLeft > .MuiSvgIcon-root {
+.connectionSignalLogo {
+	font-size: 20px !important;
+	color: #4fb185;
+	font-weight: 600;
+	cursor: default;
+}
+
+.connectionSignalLogo:hover {
+	color: #4fb185;
+}
+
+.connectionLeft > .MuiSvgIcon-root {
 	font-size: 30px;
 }
 
-.sidebar__connectionLeft {
+.connectionLeft {
 	display: flex;
 	align-items: center;
 	gap: 5px;
 }
 
-.sidebar__connectionLeftStreamText {
+.connectionLeftStreamText {
 	font-size: 10px;
 }
 
-.sidebar__connectionRight {
+.connectionRight {
 	display: flex;
 	gap: 5px;
 }
 
-.sidebar__connectionRight > .MuiSvgIcon-root {
+.connectionRight > .MuiSvgIcon-root {
 	cursor: pointer;
 	font-size: 15px;
 }
 
 /* sidebar profile */
 
-.sidebar__profile {
+.profile {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -116,7 +127,7 @@
 	color: gray;
 }
 
-.sidebar__profileLogo {
+.profileLogo {
 	border-radius: 50%;
 	width: 30px;
 	height: 30px;
@@ -124,43 +135,43 @@
 	cursor: pointer;
 }
 
-.sidebar__profileLeft {
+.profileLeft {
 	display: flex;
 	align-items: center;
 	gap: 5px;
 }
 
-.sidebar__profileLeftUserName {
+.profileLeftUserName {
 	font-size: 10px;
 	font-weight: 600;
 }
 
-.sidebar__profileLeftUserTag {
+.profileLeftUserTag {
 	font-size: 10px;
 }
 
-.sidebar__profileRight {
+.profileRight {
 	display: flex;
 	gap: 5px;
 	align-items: center;
 }
 
-.sidebar__profileRight > .MuiSvgIcon-root {
+.profileRight > .MuiSvgIcon-root {
 	cursor: pointer;
 	font-size: 15px;
 }
 
 @media (min-width: 768px) {
 	/*  sidebar header */
-	.sidebar__header {
+	.header {
 		padding: 16px 10px;
 	}
 
-	.sidebar__headerLogo {
+	.headerLogo {
 		width: 150px;
 	}
 
-	.sidebar__channelText {
+	.channelText {
 		padding: 16px 10px;
 	}
 
@@ -168,7 +179,7 @@
 
 	/* sidebar channels text */
 
-	.sidebar__channelTextLeft > p {
+	.channelTextLeft > p {
 		font-size: 18px;
 		font-weight: 700;
 	}
@@ -176,63 +187,66 @@
 	/* sidebar info */
 
 	/* sidebar connnection */
-	.sidebar__connection {
+	.connection {
 		padding: 16px 10px;
 	}
 
-	.sidebar__connectionSignal {
+	.connectionSignal {
 		font-size: 15px;
 	}
+	.connectionSignalLogo {
+		font-size: 30px !important;
+	}
 
-	.sidebar__connectionLeft > .MuiSvgIcon-root {
+	.connectionLeft > .MuiSvgIcon-root {
 		font-size: 30px;
 	}
 
-	.sidebar__connectionLeft {
+	.connectionLeft {
 		gap: 5px;
 	}
 
-	.sidebar__connectionLeftStreamText {
+	.connectionLeftStreamText {
 		font-size: 13px;
 	}
 
-	.sidebar__connectionRight {
+	.connectionRight {
 		gap: 10px;
 	}
 
-	.sidebar__connectionRight > .MuiSvgIcon-root {
+	.connectionRight > .MuiSvgIcon-root {
 		cursor: pointer;
 		font-size: 20px;
 	}
 
 	/* sidebar profile */
 
-	.sidebar__profile {
+	.profile {
 		padding: 16px 10px;
 	}
 
-	.sidebar__profileLogo {
+	.profileLogo {
 		width: 30px;
 		height: 30px;
 	}
 
-	.sidebar__profileLeft {
+	.profileLeft {
 		gap: 5px;
 	}
 
-	.sidebar__profileLeftUserName {
+	.profileLeftUserName {
 		font-size: 15px;
 	}
 
-	.sidebar__profileLeftUserTag {
+	.profileLeftUserTag {
 		font-size: 13px;
 	}
 
-	.sidebar__profileRight {
+	.profileRight {
 		gap: 5px;
 	}
 
-	.sidebar__profileRight > .MuiSvgIcon-root {
+	.profileRight > .MuiSvgIcon-root {
 		font-size: 20px;
 	}
 }
@@ -240,62 +254,65 @@
 @media (min-width: 1536px) {
 	/*  sidebar header */
 
-	.sidebar__header {
+	.header {
 		padding: 16px;
 	}
 
-	.sidebar__headerLogo {
+	.headerLogo {
 		width: 150px;
 		object-fit: contain;
 	}
 
-	.sidebar__channelText {
+	.channelText {
 		padding: 16px;
 	}
 
 	/* sidebar info */
 
 	/* sidebar connnection */
-	.sidebar__connection {
+	.connection {
 		padding: 16px 10px;
 	}
 
-	.sidebar__connectionSignal {
+	.connectionSignal {
 		font-size: 20px;
 	}
+	.connectionSignalLogo {
+		font-size: 40px !important;
+	}
 
-	.sidebar__connectionLeft > .MuiSvgIcon-root {
+	.connectionLeft > .MuiSvgIcon-root {
 		font-size: 40px;
 	}
 
-	.sidebar__connectionLeft {
+	.connectionLeft {
 		gap: 15px;
 	}
 
-	.sidebar__connectionRight {
+	.connectionRight {
 		gap: 20px;
 	}
 
 	/* sidebar profile */
 
-	.sidebar__profile {
+	.profile {
 		padding: 16px 10px;
 	}
 
-	.sidebar__profileLogo {
+	.profileLogo {
 		width: 40px;
 		height: 40px;
 	}
 
-	.sidebar__profileLeft {
+	.profileLeft {
 		gap: 15px;
 	}
 
-	.sidebar__profileLeftUserName {
+	.profileLeftUserName {
 		font-size: 22px;
 	}
 
-	.sidebar__profileRight {
+	.profileRight {
 		gap: 20px;
 	}
 }

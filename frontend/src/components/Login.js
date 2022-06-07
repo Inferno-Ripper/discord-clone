@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/Login.css';
+import styles from '../styles/Login.module.css';
 import { useDispatch } from 'react-redux';
 import { guestLogin } from '../features/userSlice';
 
@@ -11,11 +11,15 @@ const Login = () => {
 	};
 
 	return (
-		<div className='login'>
-			<img src='assets/discord-logo.png' className='login__logo' alt='' />
-			<div className='login__buttons'>
-				<button className='login__button'>Sign In</button>
-				<button onClick={guestSignIn} className='login__buttonGuest'>
+		<div className={styles.login}>
+			<img
+				src='assets/discord-logo.png'
+				className={styles.login__logo}
+				alt=''
+			/>
+			<div className={styles.login__buttons}>
+				<button className={styles.login__button}>Sign In</button>
+				<button onClick={guestSignIn} className={styles.login__buttonGuest}>
 					Sign In As Guest
 				</button>
 			</div>

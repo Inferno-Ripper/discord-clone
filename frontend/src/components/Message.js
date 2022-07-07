@@ -2,13 +2,14 @@ import React from 'react';
 import styles from '../styles/Message.module.css';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../features/userSlice';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const Message = () => {
 	const user = useSelector(selectUser);
 
 	return (
 		<div className={styles.message}>
-			<img className={styles.image} src={user.photo} alt='' />
+			<AccountCircleIcon className={styles.image} src={user.photo} alt='' />
 			<div className={styles.nameAndTime}>
 				<h4 className={styles.userName}>{user.userName}</h4>
 

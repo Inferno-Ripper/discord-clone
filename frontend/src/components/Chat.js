@@ -16,15 +16,15 @@ const Chat = () => {
 
 			<div className={styles.inputField}>
 				<form className={styles.form}>
-					<AddCircleIcon />
+					<AddCircleIcon style={{ fontSize: '30px' }} />
 					<input
 						placeholder='message #channelname'
 						className={styles.formInput}
 					/>
 					<button type='submit' className={styles.formButton}></button>
-					<CardGiftcardIcon />
-					<GifIcon />
-					<EmojiEmotionsIcon />
+					<CardGiftcardIcon style={{ fontSize: '30px' }} />
+					<GifIcon style={{ fontSize: '30px' }} />
+					<EmojiEmotionsIcon style={{ fontSize: '30px' }} />
 				</form>
 			</div>
 

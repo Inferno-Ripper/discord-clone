@@ -1,8 +1,9 @@
 .message {
-	padding: 20px;
+	padding: 20px 10px;
 	border-top: 1px solid rgb(85, 85, 85);
 	border-bottom: 1px solid rgb(85, 85, 85);
 	display: grid;
+	align-items: center;
 	grid-template-columns: 50px 80%;
 	grid-template-areas:
 		'image nameTime'
@@ -10,11 +11,7 @@
 }
 
 .image {
-	border-radius: 50%;
-	width: 30px;
-	height: 30px;
-	object-fit: contain;
-	cursor: pointer;
+	font-size: 40px !important;
 	grid-area: image;
 }
 
@@ -41,8 +38,7 @@
 	}
 
 	.image {
-		width: 50px;
-		height: 50px;
+		font-size: 50px !important;
 	}
 
 	.messageText {

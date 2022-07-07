@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from '../styles/Sidebar.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout, selectUser } from '../features/userSlice';
 
 // icons
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -11,8 +13,7 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import MicIcon from '@mui/icons-material/Mic';
 import HeadsetMicIcon from '@mui/icons-material/HeadsetMic';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { useDispatch, useSelector } from 'react-redux';
-import { logout, selectUser } from '../features/userSlice';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const Sidebar = () => {
 	const user = useSelector(selectUser);
@@ -22,6 +23,8 @@ const Sidebar = () => {
 	const signOut = () => {
 		dispatch(logout());
 	};
+
+	console.log(user.userTag);
 
 	return (
 		<div className={styles.sidebar}>
@@ -71,7 +74,7 @@ const Sidebar = () => {
 
 			<div className={styles.profile}>
 				<div className={styles.profileLeft}>
-					<img
+					<AccountCircleIcon
 						onClick={signOut}
 						src={user.photo}
 						alt=''

@@ -1,0 +1,20 @@
+.dateOfBirth {
+	display: flex;
+	justify-content: space-between;
+}
+
+.dateOfBirth > select {
+	height: 40px;
+	width: 25%;
+	background-color: #303339;
+	color: white;
+	border: none;
+	outline: none;
+	font-size: 16px;
+	border-radius: 7px;
+	padding-left: 10px;
+}
+
+.dateOfBirth select:nth-of-type(1) {
+	width: 40%;
+}

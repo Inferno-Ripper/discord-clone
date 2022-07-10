@@ -5,6 +5,7 @@ const {
 	register,
 	getMe,
 } = require('../controllers/userController');
+const { protectRoute } = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
@@ -18,7 +19,7 @@ router.get('/logout', logout);
 // @desc    get the current user
 // @route   POST /user/me
 // @access  Private
-router.get('/me', getMe);
+router.get('/me', protectRoute, getMe);
 
 // POST Routes
 

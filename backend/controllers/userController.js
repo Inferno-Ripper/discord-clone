@@ -2,6 +2,11 @@ const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
+// Generate JWT function
+const generateToken = (id) => {
+	return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' });
+};
+
 // GET Routes
 
 // @desc    Log a user out
@@ -15,7 +20,7 @@ const logout = (req, res) => {
 // @route   GET /user/me
 // @access  Private
 const getMe = (req, res) => {
-	res.send('get me');
+	res.send(req.user);
 };
 
 // POST Routes
@@ -101,11 +106,6 @@ const register = async (req, res) => {
 	} catch (error) {
 		// res.status(400).send('Invalid user data');
 	}
-};
-
-// Generate JWT function
-const generateToken = (id) => {
-	return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' });
 };
 
 module.exports = {

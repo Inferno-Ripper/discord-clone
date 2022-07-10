@@ -22,9 +22,32 @@ const getMe = (req, res) => {
 
 // @desc    log a user in
 // @route   POST /user/login
-// @access  Private
-const login = (req, res) => {
-	res.send('login');
+// @access  Public
+const login = async (req, res) => {
+	// get the data from request body
+	const { email, password } = req.body;
+
+	// Check if user exists
+	const user = await User.findOne({ email });
+
+	// compare passwords and if it's correct send the user data to client
+	if (user && (await bcrypt.compare(password, user.password))) {
+		// generate a new jwt
+		const token = generateToken(user._id);
+
+		res.json({
+			name: user.name,
+			email: user.email,
+			token,
+		});
+	}
+	// if user doesn't exists send
+	else if (!user) {
+		res.status(400).send("User Doesn't Exists");
+	} else {
+		// if password is incorrect send this
+		res.status(400).send('Invalid Credentials');
+	}
 };
 
 // @desc    Register a new user

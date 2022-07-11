@@ -5,8 +5,8 @@
 	display: flex;
 	align-items: center;
 	flex-direction: column;
-	padding-top: 20px;
 	gap: 20px;
+	overflow: auto;
 }
 
 .logo {
@@ -61,7 +61,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	padding-bottom: 20px;
+	padding-bottom: 10px;
 }
 
 .inputAndLabel {
@@ -96,6 +96,15 @@
 
 .form * input:focus {
 	border: 2px solid #5f76c9 !important;
+}
+
+.rememberMe {
+	display: flex;
+	gap: 5px;
+	cursor: pointer;
+}
+.rememberMe > p {
+	transition: color 250ms ease-in-out;
 }
 
 @media (min-width: 1280px) {

@@ -10,14 +10,27 @@ import axios from 'axios';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 // redux
-import { selectUser } from './features/userSlice';
-import { useSelector } from 'react-redux';
+import { login, selectUser } from './features/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 
 axios.defaults.withCredentials = true;
 
 function App() {
+	// state
+	const [rememberMe, setRememberMe] = useState(true);
+
+	// redux
+	const dispatch = useDispatch();
+
 	// getting the user data from redux
 	const user = useSelector(selectUser);
+
+	useEffect(() => {
+		axios
+			.get(`${process.env.REACT_APP_API_URL}/user/me`)
+			.then((res) => dispatch(login(res.data)));
+	}, []);
 
 	return (
 		<BrowserRouter>
@@ -25,7 +38,12 @@ function App() {
 				<Routes>
 					{/* IF user data is not there display the Login Page ELSE display the Home Page */}
 					{!user ? (
-						<Route path='/login' element={<Login />} />
+						<Route
+							path='/login'
+							element={
+								<Login rememberMe={rememberMe} setRememberMe={setRememberMe} />
+							}
+						/>
 					) : (
 						<Route
 							path='/'

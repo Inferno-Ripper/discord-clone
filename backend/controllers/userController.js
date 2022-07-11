@@ -27,7 +27,9 @@ const logout = (req, res) => {
 // @route   GET /user/me
 // @access  Private
 const getMe = (req, res) => {
-	res.send(req.user);
+	const { email, userName } = req.user;
+
+	res.send({ email, userName });
 };
 
 // POST Routes
@@ -37,7 +39,7 @@ const getMe = (req, res) => {
 // @access  Public
 const login = async (req, res) => {
 	// get the data from request body
-	const { email, password } = req.body;
+	const { email, password, rememberMe } = req.body;
 
 	// Check if user exists
 	const user = await User.findOne({ email });
@@ -47,8 +49,10 @@ const login = async (req, res) => {
 		// generate a new jwt
 		const token = generateToken(user._id);
 
-		// send the jwt cookie to client
-		res.cookie('jwt', token, cookieOptions);
+		if (rememberMe) {
+			// send the jwt in a cookie to client
+			res.cookie('jwt', token, cookieOptions);
+		}
 		res.status(201).json({ userName: user.userName, email: user.email });
 	}
 	// if user doesn't exists send
@@ -65,11 +69,11 @@ const login = async (req, res) => {
 // @access  Public
 const register = async (req, res) => {
 	// get the data from request body
-	const { userName, email, password, dateOfBirth } = req.body;
+	const { userName, email, password, dateOfBirth, rememberMe } = req.body;
 
 	// Check if all fields are filled
 	if (!userName || !email || !password) {
-		res.status(400).send('Please add all fields');
+		res.status(400).send('Please Add All Fields');
 	}
 
 	// Check if user already exists
@@ -95,17 +99,16 @@ const register = async (req, res) => {
 		// generate a new jwt
 		const token = generateToken(user._id);
 
+		if (rememberMe) {
+			// send the jwt in a cookie to client
+			res.cookie('jwt', token, cookieOptions);
+		}
+
 		// send the user name and email to client
-		res
-			.status(201)
-			.send({
-				userName: user.userName,
-				email: user.email,
-				token,
-			})
-			// send the jwt in a cookie to client and redirect to the home page
-			.header('auth-token', token, cookieOptions)
-			.redirect('/');
+		res.status(200).json({
+			userName: user.userName,
+			email: user.email,
+		});
 	}
 };
 

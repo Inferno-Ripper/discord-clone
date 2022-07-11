@@ -4,8 +4,10 @@ import { useDispatch } from 'react-redux';
 import DateOfBirth from './DateOfBirth';
 import axios from 'axios';
 import { login } from '../features/userSlice';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
-const Login = () => {
+const Login = ({ rememberMe, setRememberMe }) => {
 	// state
 	const [method, setMethod] = useState('login');
 	const [userName, setUserName] = useState('');
@@ -27,14 +29,20 @@ const Login = () => {
 			return;
 		}
 
+		if (password.length < 6) {
+			console.log('Password Must Be Longer Than 6 Characters');
+			return;
+		}
+
 		axios
-			.post(`${process.env.REACT_APP_API_URL}/register`, {
+			.post(`${process.env.REACT_APP_API_URL}/user/register`, {
 				userName,
 				email,
 				password,
 				dateOfBirth: `${DOBmonth}, ${DOBday}, ${DOByear}`,
+				rememberMe,
 			})
-			.then((res) => console.log(res))
+			.then((res) => dispatch(login(res.data)))
 			.catch((error) => console.log(error.response.data));
 	};
 
@@ -50,6 +58,7 @@ const Login = () => {
 			.post(`${process.env.REACT_APP_API_URL}/user/login`, {
 				email,
 				password,
+				rememberMe,
 			})
 			.then((res) => dispatch(login(res.data)))
 			.catch((error) => console.log(error.response.data));
@@ -85,6 +94,22 @@ const Login = () => {
 							value={password}
 							onChange={(e) => setPassword(e.target.value)}
 						/>
+					</div>
+
+					<div
+						className={styles.rememberMe}
+						onClick={() => setRememberMe((prev) => !prev)}
+					>
+						<div>
+							{rememberMe ? (
+								<CheckBoxIcon style={{ color: '#2b82e2' }} />
+							) : (
+								<CheckBoxOutlineBlankIcon />
+							)}
+						</div>
+						<p style={{ color: rememberMe ? 'white' : '#63767d' }}>
+							Remember Me
+						</p>
 					</div>
 
 					<div className={styles.login__buttonContainer}>
@@ -130,6 +155,22 @@ const Login = () => {
 								value={password}
 								onChange={(e) => setPassword(e.target.value)}
 							/>
+						</div>
+
+						<div
+							className={styles.rememberMe}
+							onClick={() => setRememberMe((prev) => !prev)}
+						>
+							<div>
+								{rememberMe ? (
+									<CheckBoxIcon style={{ color: '#2b82e2' }} />
+								) : (
+									<CheckBoxOutlineBlankIcon />
+								)}
+							</div>
+							<p style={{ color: rememberMe ? 'white' : '#63767d' }}>
+								Remember Me
+							</p>
 						</div>
 
 						<div>

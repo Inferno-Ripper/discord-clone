@@ -2,16 +2,11 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
 
 const protectRoute = async (req, res, next) => {
-	let token;
+	// get jwt cookie from the client request
+	const token = req.cookies.jwt;
 
-	if (
-		req.headers.authorization &&
-		req.headers.authorization.startsWith('Bearer')
-	) {
+	if (token) {
 		try {
-			// get token from the request header
-			token = req.headers.authorization.split(' ')[1];
-
 			// verify jwt
 			const decodedJWT = jwt.verify(token, process.env.JWT_SECRET);
 
@@ -25,7 +20,8 @@ const protectRoute = async (req, res, next) => {
 	}
 
 	if (!token) {
-		res.status(401).send('Not authorized, no token');
+		// res.status(401).json('Not authorized, no JWT');
+		res.redirect('http://localhost:3000/login');
 	}
 };
 

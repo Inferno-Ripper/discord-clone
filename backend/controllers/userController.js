@@ -27,9 +27,9 @@ const logout = (req, res) => {
 // @route   GET /user/me
 // @access  Private
 const getMe = (req, res) => {
-	const { email, userName } = req.user;
+	const { email, userName, _id } = req.user;
 
-	res.send({ email, userName });
+	res.send({ email, userName, userId: _id });
 };
 
 // POST Routes
@@ -53,7 +53,9 @@ const login = async (req, res) => {
 			// send the jwt in a cookie to client
 			res.cookie('jwt', token, cookieOptions);
 		}
-		res.status(201).json({ userName: user.userName, email: user.email });
+		res
+			.status(201)
+			.json({ userName: user.userName, email: user.email, userId: user._id });
 	}
 	// if user doesn't exists send
 	else if (!user) {
@@ -108,6 +110,7 @@ const register = async (req, res) => {
 		res.status(200).json({
 			userName: user.userName,
 			email: user.email,
+			userId: user._id,
 		});
 	}
 };

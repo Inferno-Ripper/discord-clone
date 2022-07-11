@@ -1,9 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/userRoutes');
+const channelsRoutes = require('./routes/channelsRoutes');
+const messagesRoutes = require('./routes/messagesRoutes');
 const dotenv = require('dotenv').config();
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const { protectRoute } = require('./middleware/authMiddleware');
 
 const app = express();
 
@@ -19,6 +22,8 @@ app.use(cookieParser());
 
 // routes
 app.use('/user', userRoutes);
+app.use('/channels', protectRoute, channelsRoutes);
+app.use('/messages', protectRoute, messagesRoutes);
 
 // database connection
 mongoose.connect(process.env.MONGO_URI, () => console.log('connected to DB'));

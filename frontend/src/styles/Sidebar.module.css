@@ -60,6 +60,18 @@
 /* sidebar channels */
 .channels {
 	flex: 1;
+	overflow-y: scroll;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.channels::-webkit-scrollbar {
+	display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.channels {
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; /* Firefox */
 }
 
 /* sidebar info */

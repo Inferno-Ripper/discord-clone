@@ -19,11 +19,11 @@ router.get('/', getChannels);
 // @desc    Add a channel
 // @route   Post /channels/delete
 // @access  Private
-router.post('/add-channel', addChannel);
+router.post('/add', addChannel);
 
 // @desc    delete a channel
-// @route   Delete /channels/delete
+// @route   Delete /channels/delete-channel/:id
 // @access  Private
-router.delete('/delete-channel', deleteChannel);
+router.delete('/delete-channel/:id', deleteChannel);
 
 module.exports = router;

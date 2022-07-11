@@ -12,6 +12,27 @@
 	font-weight: 700;
 }
 
+.container {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	align-items: center;
+}
+
+.deleteIcon {
+	opacity: 0;
+	font-size: 20px;
+}
+
+.container:hover .deleteIcon {
+	color: lightgray;
+	opacity: 1;
+}
+.deleteIcon:hover {
+	opacity: 1;
+	color: rgb(139, 17, 17) !important;
+}
+
 .channel__name {
 	font-size: 12px;
 	font-weight: 700;
@@ -33,5 +54,9 @@
 
 	.channel {
 		padding: 8px 25px;
+	}
+
+	.deleteIcon {
+		font-size: 25px;
 	}
 }

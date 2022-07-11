@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '../styles/Sidebar.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout, selectUser, selectUserTag } from '../features/userSlice';
@@ -17,17 +17,46 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import axios from 'axios';
 
 const Sidebar = () => {
+	// state
+	const [channels, setChannels] = useState([]);
+
 	// redux
 	const dispatch = useDispatch();
 
 	const userTag = useSelector(selectUserTag);
 	const user = useSelector(selectUser);
 
+	useEffect(() => {
+		axios
+			.get(`${process.env.REACT_APP_API_URL}/channels`)
+			.then((res) => setChannels(res.data));
+	}, []);
+
 	// functions
 	const signOut = () => {
 		dispatch(logout());
 
 		axios.get(`${process.env.REACT_APP_API_URL}/user/logout`);
+	};
+
+	const addChannel = () => {
+		let newChannel = window.prompt('Enter New Channel Name');
+
+		if (!newChannel) {
+			console.log('Please Add A Channel Name');
+			return;
+		}
+
+		axios
+			.post(`${process.env.REACT_APP_API_URL}/channels/add`, {
+				channel: newChannel,
+				user: {
+					name: user.userName,
+					id: user.userId,
+				},
+			})
+			.then((res) => setChannels((prevChannels) => [...prevChannels, res.data]))
+			.catch((err) => console.log(err.response.data));
 	};
 
 	return (
@@ -48,15 +77,21 @@ const Sidebar = () => {
 					<ExpandMoreIcon /> <p>Channels</p>
 				</div>
 				<div className={styles.channelTextRight}>
-					<AddIcon />
+					<AddIcon onClick={addChannel} />
 				</div>
 			</div>
 
 			{/* sidebar channels */}
 			<div className={styles.channels}>
-				<Channel channelName={'Youtube'} />
-				<Channel channelName={'Twitch'} />
-				<Channel channelName={'Discord'} />
+				{channels.map(({ channel, _id: channelId }) => {
+					return (
+						<Channel
+							channelName={channel}
+							channelId={channelId}
+							key={channelId}
+						/>
+					);
+				})}
 			</div>
 
 			{/* sidebar info */}

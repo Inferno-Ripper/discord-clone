@@ -1,9 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
-	user: null,
-};
-
 const generateRandomNumbers = () => {
 	let randomNumbers = [];
 
@@ -13,6 +9,11 @@ const generateRandomNumbers = () => {
 	}
 
 	return randomNumbers;
+};
+
+const initialState = {
+	user: null,
+	userTag: generateRandomNumbers(),
 };
 
 const userSlice = createSlice({
@@ -26,19 +27,12 @@ const userSlice = createSlice({
 		logout: (state) => {
 			state.user = null;
 		},
-
-		guestLogin: (state) => {
-			state.user = {
-				userName: 'Guest',
-				userTag: generateRandomNumbers(),
-				photo: '/assets/guest-account.jpg',
-			};
-		},
 	},
 });
 
 export const selectUser = (state) => state.user.user;
+export const selectUserTag = (state) => state.user.userTag;
 
-export const { login, logout, guestLogin } = userSlice.actions;
+export const { login, logout } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../styles/Sidebar.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout, selectUser } from '../features/userSlice';
+import { logout, selectUser, selectUserTag } from '../features/userSlice';
 
 // icons
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -14,17 +14,21 @@ import MicIcon from '@mui/icons-material/Mic';
 import HeadsetMicIcon from '@mui/icons-material/HeadsetMic';
 import SettingsIcon from '@mui/icons-material/Settings';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import axios from 'axios';
 
 const Sidebar = () => {
-	const user = useSelector(selectUser);
-
+	// redux
 	const dispatch = useDispatch();
 
+	const userTag = useSelector(selectUserTag);
+	const user = useSelector(selectUser);
+
+	// functions
 	const signOut = () => {
 		dispatch(logout());
-	};
 
-	console.log(user.userTag);
+		axios.get(`${process.env.REACT_APP_API_URL}/user/logout`);
+	};
 
 	return (
 		<div className={styles.sidebar}>
@@ -84,7 +88,7 @@ const Sidebar = () => {
 						<h1 className={styles.profileLeftUserName}>{user.userName}</h1>
 						<p className={styles.profileLeftUserTag}>
 							<span>#</span>
-							{user.userTag}
+							{userTag}
 						</p>
 					</div>
 				</div>

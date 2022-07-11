@@ -7,13 +7,20 @@ const generateToken = (id) => {
 	return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' });
 };
 
+const cookieOptions = {
+	httpOnly: true,
+	// 30 days
+	maxAge: 1000 * 60 * 60 * 24 * 30,
+	// secure: true,
+};
+
 // GET Routes
 
 // @desc    Log a user out
 // @route   Get /user/logout
 // @access  Public
 const logout = (req, res) => {
-	res.send('logout');
+	res.clearCookie('jwt').send();
 };
 
 // @desc    get the current user
@@ -40,11 +47,9 @@ const login = async (req, res) => {
 		// generate a new jwt
 		const token = generateToken(user._id);
 
-		res.json({
-			name: user.name,
-			email: user.email,
-			token,
-		});
+		// send the jwt cookie to client
+		res.cookie('jwt', token, cookieOptions);
+		res.status(201).json({ userName: user.userName, email: user.email });
 	}
 	// if user doesn't exists send
 	else if (!user) {
@@ -74,37 +79,33 @@ const register = async (req, res) => {
 		res.status(400).send('User Already Exists');
 	}
 
-	try {
-		// Hash password
-		const salt = await bcrypt.genSalt(10);
-		const hashedPassword = await bcrypt.hash(password, salt);
+	// Hash password
+	const salt = await bcrypt.genSalt(10);
+	const hashedPassword = await bcrypt.hash(password, salt);
 
-		// Create user
-		const user = await User.create({
-			userName,
-			email,
-			password: hashedPassword,
-			dateOfBirth,
-		});
+	// Create user
+	const user = await User.create({
+		userName,
+		email,
+		password: hashedPassword,
+		dateOfBirth,
+	});
 
-		if (user) {
-			// generate a new jwt
-			const token = generateToken(user._id);
+	if (user) {
+		// generate a new jwt
+		const token = generateToken(user._id);
 
-			// send the user name and email to client
-			res
-				.status(201)
-				.send({
-					userName: user.userName,
-					email: user.email,
-					token,
-				})
-				// send the jwt in a cookie to client and redirect to the home page
-				.header('auth-token', token, { maxAge: 900000 })
-				.redirect('/');
-		}
-	} catch (error) {
-		// res.status(400).send('Invalid user data');
+		// send the user name and email to client
+		res
+			.status(201)
+			.send({
+				userName: user.userName,
+				email: user.email,
+				token,
+			})
+			// send the jwt in a cookie to client and redirect to the home page
+			.header('auth-token', token, cookieOptions)
+			.redirect('/');
 	}
 };
 

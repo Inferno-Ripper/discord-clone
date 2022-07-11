@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import styles from '../styles/Login.module.css';
 import { useDispatch } from 'react-redux';
 import DateOfBirth from './DateOfBirth';
+import axios from 'axios';
+import { login } from '../features/userSlice';
 
 const Login = () => {
 	// state
@@ -16,6 +18,43 @@ const Login = () => {
 	// redux
 	const dispatch = useDispatch();
 
+	// functions
+	const registerUser = (e) => {
+		e.preventDefault();
+
+		if (!userName || !email || !password || !DOBmonth || !DOBday || !DOByear) {
+			console.log('fill all fields');
+			return;
+		}
+
+		axios
+			.post(`${process.env.REACT_APP_API_URL}/register`, {
+				userName,
+				email,
+				password,
+				dateOfBirth: `${DOBmonth}, ${DOBday}, ${DOByear}`,
+			})
+			.then((res) => console.log(res))
+			.catch((error) => console.log(error.response.data));
+	};
+
+	const loginUser = (e) => {
+		e.preventDefault();
+
+		if (!email || !password) {
+			console.log('fill all fields');
+			return;
+		}
+
+		axios
+			.post(`${process.env.REACT_APP_API_URL}/user/login`, {
+				email,
+				password,
+			})
+			.then((res) => dispatch(login(res.data)))
+			.catch((error) => console.log(error.response.data));
+	};
+
 	return (
 		<div className={styles.login}>
 			<img
@@ -25,17 +64,27 @@ const Login = () => {
 			/>
 			{method === 'login' ? (
 				// login
-				<form className={styles.form}>
+				<form className={styles.form} onSubmit={loginUser}>
 					<h1>Welcome Back!</h1>
 
 					<div className={styles.inputAndLabel}>
 						<label htmlFor='email'>EMAIL</label>
-						<input type='email' id='email' />
+						<input
+							type='email'
+							id='email'
+							value={email}
+							onChange={(e) => setEmail(e.target.value)}
+						/>
 					</div>
 
 					<div className={styles.inputAndLabel}>
 						<label htmlFor='password'>PASSWORD</label>
-						<input type='password' id='password' />
+						<input
+							type='password'
+							id='password'
+							value={password}
+							onChange={(e) => setPassword(e.target.value)}
+						/>
 					</div>
 
 					<div className={styles.login__buttonContainer}>
@@ -55,17 +104,32 @@ const Login = () => {
 
 						<div className={styles.inputAndLabel}>
 							<label htmlFor='username'>USER NAME</label>
-							<input type='text' id='username' />
+							<input
+								type='text'
+								id='username'
+								value={userName}
+								onChange={(e) => setUserName(e.target.value)}
+							/>
 						</div>
 
 						<div className={styles.inputAndLabel}>
 							<label htmlFor='email'>EMAIL</label>
-							<input type='email' id='email' />
+							<input
+								type='email'
+								id='email'
+								value={email}
+								onChange={(e) => setEmail(e.target.value)}
+							/>
 						</div>
 
 						<div className={styles.inputAndLabel}>
 							<label htmlFor='password'>PASSWORD</label>
-							<input type='password' id='password' />
+							<input
+								type='password'
+								id='password'
+								value={password}
+								onChange={(e) => setPassword(e.target.value)}
+							/>
 						</div>
 
 						<div>
@@ -78,7 +142,9 @@ const Login = () => {
 						</div>
 
 						<div className={styles.login__buttonContainer}>
-							<button className={styles.login__button}>Register</button>
+							<button className={styles.login__button} onClick={registerUser}>
+								Register
+							</button>
 
 							<p className={styles.changeMethod}>
 								Already Have An Account?

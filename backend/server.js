@@ -3,11 +3,18 @@ const mongoose = require('mongoose');
 const userRoutes = require('./routes/userRoutes');
 const dotenv = require('dotenv').config();
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 
 const app = express();
 
-app.use(cookieParser());
+const corsOptions = {
+	origin: true, //included origin as true
+	credentials: true, //included credentials as true
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
+app.use(cookieParser());
 
 app.use('/user', userRoutes);
 

@@ -24,6 +24,6 @@ router.post('/add', addChannel);
 // @desc    delete a channel
 // @route   Delete /channels/delete-channel/:id
 // @access  Private
-router.delete('/delete-channel/:id', deleteChannel);
+router.delete('/delete-channel/:channelId', deleteChannel);
 
 module.exports = router;

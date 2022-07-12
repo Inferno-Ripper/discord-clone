@@ -3,20 +3,23 @@ import styles from '../styles/Message.module.css';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../features/userSlice';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import moment from 'moment';
 
-const Message = () => {
+moment().format();
+
+const Message = ({ message, userFromDB, createdAt }) => {
 	const user = useSelector(selectUser);
 
 	return (
 		<div className={styles.message}>
 			<AccountCircleIcon className={styles.image} src={user.photo} alt='' />
 			<div className={styles.nameAndTime}>
-				<h4 className={styles.userName}>{user.userName}</h4>
+				<h4 className={styles.userName}>{userFromDB.userName}</h4>
 
-				<p className={styles.time}>time</p>
+				<p className={styles.time}>{moment(createdAt).fromNow()}</p>
 			</div>
 
-			<p className={styles.messageText}>message goes here</p>
+			<p className={styles.messageText}>{message}</p>
 		</div>
 	);
 };

@@ -1,5 +1,6 @@
 const { findById } = require('../models/channelModel');
 const Channel = require('../models/channelModel');
+const Message = require('../models/messageModel');
 
 // GET Routes
 
@@ -45,8 +46,21 @@ const addChannel = async (req, res) => {
 // @route   Delete /channels/delete
 // @access  Private
 const deleteChannel = async (req, res) => {
-	const deleteChannel = await Channel.findByIdAndDelete(req.params.id);
-	res.status(204).send('Channel Deleted');
+	// get the channel id from the request
+	const { channelId } = req.params;
+
+	// find the channel name by the channel id
+	const findChannelName = await Channel.findById(channelId);
+
+	// delete the channel by channel id
+	const deleteChannel = await Channel.findByIdAndDelete(channelId);
+
+	// delete all the messages where the channel is equal to findChannelName.name
+	const deleteMessages = await Message.deleteMany({
+		channel: findChannelName.channel,
+	});
+
+	res.status(204);
 };
 
 module.exports = {

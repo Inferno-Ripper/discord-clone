@@ -10,9 +10,9 @@ const router = express.Router();
 // GET Routes
 
 // @desc    Get all the messages
-// @route   Get /messages
+// @route   Get /messages/channel
 // @access  Private
-router.get('/', getMessages);
+router.get('/:channel', getMessages);
 
 // POST Routes
 

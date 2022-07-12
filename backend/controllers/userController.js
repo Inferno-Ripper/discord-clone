@@ -7,13 +7,6 @@ const generateToken = (id) => {
 	return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' });
 };
 
-const cookieOptions = {
-	httpOnly: true,
-	// 30 days
-	maxAge: 1000 * 60 * 60 * 24 * 30,
-	// secure: true,
-};
-
 // GET Routes
 
 // @desc    Log a user out
@@ -49,10 +42,19 @@ const login = async (req, res) => {
 		// generate a new jwt
 		const token = generateToken(user._id);
 
+		const cookieOptions = {
+			httpOnly: true,
+			// secure: true,
+		};
+
 		if (rememberMe) {
-			// send the jwt in a cookie to client
-			res.cookie('jwt', token, cookieOptions);
+			// 30 days
+			cookieOptions.maxAge = 1000 * 60 * 60 * 24 * 30;
 		}
+
+		// send the jwt in a cookie to client
+		res.cookie('jwt', token, cookieOptions);
+
 		res
 			.status(201)
 			.json({ userName: user.userName, email: user.email, userId: user._id });
@@ -101,10 +103,17 @@ const register = async (req, res) => {
 		// generate a new jwt
 		const token = generateToken(user._id);
 
+		const cookieOptions = {
+			httpOnly: true,
+			// secure: true,
+		};
+
 		if (rememberMe) {
-			// send the jwt in a cookie to client
-			res.cookie('jwt', token, cookieOptions);
+			// 30 days
+			cookieOptions.maxAge = 1000 * 60 * 60 * 24 * 30;
 		}
+		// send the jwt in a cookie to client
+		res.cookie('jwt', token, cookieOptions);
 
 		// send the user name and email to client
 		res.status(200).json({

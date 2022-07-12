@@ -86,9 +86,9 @@ const Sidebar = () => {
 				{channels.map(({ channel, _id: channelId }) => {
 					return (
 						<Channel
+							key={channelId}
 							channelName={channel}
 							channelId={channelId}
-							key={channelId}
 						/>
 					);
 				})}
@@ -123,7 +123,7 @@ const Sidebar = () => {
 						<h1 className={styles.profileLeftUserName}>{user.userName}</h1>
 						<p className={styles.profileLeftUserTag}>
 							<span>#</span>
-							{userTag}
+							{user.userTag}
 						</p>
 					</div>
 				</div>

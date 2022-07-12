@@ -18,6 +18,10 @@ const userSchema = mongoose.Schema(
 			required: [true, 'Please add a password'],
 		},
 
+		userTag: {
+			type: Number,
+		},
+
 		dateOfBirth: {
 			type: String,
 		},

@@ -20,9 +20,9 @@ const logout = (req, res) => {
 // @route   GET /user/me
 // @access  Private
 const getMe = (req, res) => {
-	const { email, userName, _id } = req.user;
+	const { email, userName, _id, userTag } = req.user;
 
-	res.send({ email, userName, userId: _id });
+	res.send({ email, userName, userId: _id, userTag });
 };
 
 // POST Routes
@@ -55,9 +55,12 @@ const login = async (req, res) => {
 		// send the jwt in a cookie to client
 		res.cookie('jwt', token, cookieOptions);
 
-		res
-			.status(201)
-			.json({ userName: user.userName, email: user.email, userId: user._id });
+		res.status(201).json({
+			userName: user.userName,
+			email: user.email,
+			userId: user._id,
+			userTag: user.userTag,
+		});
 	}
 	// if user doesn't exists send
 	else if (!user) {
@@ -73,7 +76,8 @@ const login = async (req, res) => {
 // @access  Public
 const register = async (req, res) => {
 	// get the data from request body
-	const { userName, email, password, dateOfBirth, rememberMe } = req.body;
+	const { userName, email, password, userTag, dateOfBirth, rememberMe } =
+		req.body;
 
 	// Check if all fields are filled
 	if (!userName || !email || !password) {
@@ -96,6 +100,7 @@ const register = async (req, res) => {
 		userName,
 		email,
 		password: hashedPassword,
+		userTag,
 		dateOfBirth,
 	});
 

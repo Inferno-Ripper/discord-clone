@@ -5,6 +5,18 @@
 	gap: 7px;
 	color: gray;
 	cursor: pointer;
+	border-top: 1px solid #2f3135;
+	border-bottom: 1px solid #2f3135;
+}
+
+.channel:hover {
+	background-color: #474b53;
+	color: white;
+}
+
+.channelActive {
+	background-color: #474b53;
+	color: lightgray;
 }
 
 .channel__hash {
@@ -36,11 +48,6 @@
 .channel__name {
 	font-size: 12px;
 	font-weight: 700;
-}
-
-.channel:hover {
-	background-color: #474b53;
-	color: white;
 }
 
 @media (min-width: 768px) {

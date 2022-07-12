@@ -34,11 +34,28 @@ const Login = ({ rememberMe, setRememberMe }) => {
 			return;
 		}
 
+		const generateRandomNumbers = () => {
+			let randomNumbers = [];
+
+			// generates 5 random numbers
+			for (let i = 0; i < 5; i++) {
+				randomNumbers.push(Math.floor(Math.random() * 9));
+			}
+
+			randomNumbers = randomNumbers.toLocaleString().replace(/\,/g, '');
+			randomNumbers = Number(randomNumbers);
+
+			return randomNumbers;
+		};
+
+		console.log(generateRandomNumbers());
+
 		axios
 			.post(`${process.env.REACT_APP_API_URL}/user/register`, {
 				userName,
 				email,
 				password,
+				userTag: generateRandomNumbers(),
 				dateOfBirth: `${DOBmonth}, ${DOBday}, ${DOByear}`,
 				rememberMe,
 			})

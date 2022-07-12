@@ -7,7 +7,13 @@ import Login from './components/Login';
 import axios from 'axios';
 
 // react router
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import {
+	BrowserRouter,
+	Routes,
+	Route,
+	Navigate,
+	useParams,
+} from 'react-router-dom';
 
 // redux
 import { login, selectUser } from './features/userSlice';
@@ -30,6 +36,7 @@ function App() {
 		axios
 			.get(`${process.env.REACT_APP_API_URL}/user/me`)
 			.then((res) => dispatch(login(res.data)));
+		// .then((res) => console.log(res.data));
 	}, []);
 
 	return (

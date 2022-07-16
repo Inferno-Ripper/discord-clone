@@ -48,7 +48,8 @@ const Login = ({ rememberMe, setRememberMe }) => {
 			return randomNumbers;
 		};
 
-		console.log(generateRandomNumbers());
+		// generates 5 random numbers
+		const randomColor = Math.floor(Math.random() * 16777215).toString(16);
 
 		axios
 			.post(`${process.env.REACT_APP_API_URL}/user/register`, {
@@ -58,6 +59,7 @@ const Login = ({ rememberMe, setRememberMe }) => {
 				userTag: generateRandomNumbers(),
 				dateOfBirth: `${DOBmonth}, ${DOBday}, ${DOByear}`,
 				rememberMe,
+				userColor: randomColor,
 			})
 			.then((res) => dispatch(login(res.data)))
 			.catch((error) => console.log(error.response.data));

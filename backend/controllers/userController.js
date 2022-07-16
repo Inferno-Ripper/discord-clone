@@ -20,9 +20,9 @@ const logout = (req, res) => {
 // @route   GET /user/me
 // @access  Private
 const getMe = (req, res) => {
-	const { email, userName, _id, userTag } = req.user;
+	const { email, userName, _id, userTag, userColor } = req.user;
 
-	res.send({ email, userName, userId: _id, userTag });
+	res.status(200).send({ email, userName, userId: _id, userTag, userColor });
 };
 
 // POST Routes
@@ -76,8 +76,15 @@ const login = async (req, res) => {
 // @access  Public
 const register = async (req, res) => {
 	// get the data from request body
-	const { userName, email, password, userTag, dateOfBirth, rememberMe } =
-		req.body;
+	const {
+		userName,
+		email,
+		password,
+		userTag,
+		dateOfBirth,
+		rememberMe,
+		userColor,
+	} = req.body;
 
 	// Check if all fields are filled
 	if (!userName || !email || !password) {
@@ -102,6 +109,7 @@ const register = async (req, res) => {
 		password: hashedPassword,
 		userTag,
 		dateOfBirth,
+		userColor,
 	});
 
 	if (user) {
@@ -125,6 +133,7 @@ const register = async (req, res) => {
 			userName: user.userName,
 			email: user.email,
 			userId: user._id,
+			userColor: user.userColor,
 		});
 	}
 };

@@ -33,7 +33,11 @@ const Chat = () => {
 			.post(`${process.env.REACT_APP_API_URL}/messages/add`, {
 				channel: selectedChannel,
 				message,
-				user: { userId: user.userId, userName: user.userName },
+				user: {
+					userId: user.userId,
+					userName: user.userName,
+					userColor: user.userColor,
+				},
 			})
 			.catch((err) => console.log(err.response.data));
 

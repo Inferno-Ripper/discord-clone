@@ -17,9 +17,14 @@ const messageSchema = mongoose.Schema(
 				type: String,
 				required: true,
 			},
+
 			userId: {
 				type: String,
 				required: true,
+			},
+
+			userColor: {
+				type: String,
 			},
 		},
 	},

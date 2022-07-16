@@ -36,7 +36,6 @@ function App() {
 		axios
 			.get(`${process.env.REACT_APP_API_URL}/user/me`)
 			.then((res) => dispatch(login(res.data)));
-		// .then((res) => console.log(res.data));
 	}, []);
 
 	return (

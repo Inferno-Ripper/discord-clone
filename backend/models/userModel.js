@@ -25,6 +25,10 @@ const userSchema = mongoose.Schema(
 		dateOfBirth: {
 			type: String,
 		},
+
+		userColor: {
+			type: String,
+		},
 	},
 	{
 		timestamps: true,

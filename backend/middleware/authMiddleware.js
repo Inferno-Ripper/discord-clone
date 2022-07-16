@@ -21,7 +21,7 @@ const protectRoute = async (req, res, next) => {
 
 	if (!token) {
 		// res.status(401).json('Not authorized, no JWT');
-		res.redirect('http://localhost:3000/login');
+		// res.redirect('http://localhost:3000/login');
 	}
 };
 

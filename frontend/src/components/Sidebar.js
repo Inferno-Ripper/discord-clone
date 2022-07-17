@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import styles from '../styles/Sidebar.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout, selectUser, selectUserTag } from '../features/userSlice';
-
 // icons
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddIcon from '@mui/icons-material/Add';
@@ -15,10 +14,12 @@ import HeadsetMicIcon from '@mui/icons-material/HeadsetMic';
 import SettingsIcon from '@mui/icons-material/Settings';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import axios from 'axios';
+import UserSettings from './UserSettings';
 
 const Sidebar = () => {
 	// state
 	const [channels, setChannels] = useState([]);
+	const [isSettingOpen, setIsSettingOpen] = useState(false);
 
 	// redux
 	const dispatch = useDispatch();
@@ -33,11 +34,6 @@ const Sidebar = () => {
 	}, []);
 
 	// functions
-	const signOut = () => {
-		dispatch(logout());
-
-		axios.get(`${process.env.REACT_APP_API_URL}/user/logout`);
-	};
 
 	const addChannel = () => {
 		let newChannel = window.prompt('Enter New Channel Name');
@@ -114,7 +110,6 @@ const Sidebar = () => {
 			<div className={styles.profile}>
 				<div className={styles.profileLeft}>
 					<AccountCircleIcon
-						onClick={signOut}
 						src={user.photo}
 						alt=''
 						className={styles.profileLogo}
@@ -131,7 +126,12 @@ const Sidebar = () => {
 				<div className={styles.profileRight}>
 					<MicIcon />
 					<HeadsetMicIcon />
-					<SettingsIcon />
+					<SettingsIcon
+						className={isSettingOpen && styles.settingsOpen}
+						onClick={() => setIsSettingOpen((prev) => !prev)}
+					/>
+
+					<UserSettings isSettingOpen={isSettingOpen} />
 				</div>
 			</div>
 		</div>

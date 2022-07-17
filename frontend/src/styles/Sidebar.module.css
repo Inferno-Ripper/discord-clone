@@ -167,11 +167,18 @@
 	display: flex;
 	gap: 5px;
 	align-items: center;
+	position: relative;
 }
 
 .profileRight > .MuiSvgIcon-root {
 	cursor: pointer;
 	font-size: 15px;
+}
+
+.settingsOpen {
+	transition: all 250ms ease-in-out;
+	transform: rotate(45deg) !important;
+	color: white;
 }
 
 @media (min-width: 768px) {

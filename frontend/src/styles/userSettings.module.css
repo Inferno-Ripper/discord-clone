@@ -1,0 +1,54 @@
+.userSettingsContainer {
+	position: absolute;
+	bottom: 40px;
+	right: -8px;
+	background-color: #202225;
+	z-index: 999;
+	display: flex;
+	flex-direction: column;
+	border-radius: 7px;
+}
+
+.userSettingsContainer button:first-child {
+	border-top-left-radius: 7px;
+	border-top-right-radius: 7px;
+}
+
+.userSettingsContainer button:last-child {
+	border-bottom-left-radius: 7px;
+	border-bottom-right-radius: 7px;
+}
+
+.btn {
+	z-index: 999;
+	height: 50px;
+	width: 190px;
+	padding: 10px 20px;
+	background: transparent;
+	border: none;
+	outline: none;
+	color: white;
+	text-align: left;
+	font-size: 16px;
+	cursor: pointer;
+	transition: all 250ms ease-in-out;
+}
+
+.btn:hover {
+	background-color: #35383c;
+}
+
+.userSettingsContainer :not(:last-of-type) {
+	border-bottom: 1px solid rgb(82, 82, 82);
+}
+
+.containerArrow {
+	position: absolute;
+	width: 18px;
+	height: 18px;
+	background-color: #202225;
+	bottom: -6px;
+	right: 10px;
+	transform: rotate(45deg);
+	z-index: 0;
+}

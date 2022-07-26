@@ -7,7 +7,7 @@ import moment from 'moment';
 
 moment().format();
 
-const Message = ({ message, userFromDB, createdAt, userColor }) => {
+const Message = ({ message, userFromDB, createdAt }) => {
 	const user = useSelector(selectUser);
 
 	return (

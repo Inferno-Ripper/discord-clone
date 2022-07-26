@@ -134,7 +134,93 @@ const register = async (req, res) => {
 			email: user.email,
 			userId: user._id,
 			userColor: user.userColor,
+			userTag: user.userTag,
 		});
+	}
+};
+
+// PUT Routes
+
+// @desc    log a user in
+// @route   PUT /user/update
+// @access  Private
+const updateUser = async (req, res) => {
+	const { field } = req.params;
+	const { userId } = req.body;
+
+	if (field === 'userName' || field === 'userEmail') {
+		const { value } = req.body;
+
+		// change user name
+		if (field === 'userName') {
+			// find user by id and update the user name
+			User.findByIdAndUpdate(
+				userId,
+				{
+					userName: value,
+				},
+				{ new: true },
+				(err, docs) => {
+					if (err) {
+						// if there is an error send it to the client
+						res.status(400).send(err);
+					} else {
+						// send the updated user name to client
+						res.status(200).send(docs.userName);
+					}
+				}
+			);
+		}
+
+		// change user email
+		else if (field === 'userEmail') {
+			// find user by id and update the user email address
+			User.findByIdAndUpdate(
+				userId,
+				{
+					email: value,
+				},
+				{ new: true },
+				(err, docs) => {
+					if (err) {
+						// if there is an error send it to the client
+						res.status(400).send(err);
+					} else {
+						// send the updated user email to client
+						res.status(200).send(docs.email);
+					}
+				}
+			);
+		}
+	}
+
+	// change user password
+	else if (field === 'userPassword') {
+		const { oldUserPassword, newUserPassword } = req.body;
+
+		const user = await User.findById(userId);
+
+		const passwordMatched = await bcrypt.compare(
+			oldUserPassword,
+			user.password
+		);
+
+		if (!passwordMatched) {
+			res.status(400).send('Old Password Is Incorrect');
+		} else if (passwordMatched) {
+			// Hash password
+			const salt = await bcrypt.genSalt(10);
+			const newHashedPassword = await bcrypt.hash(newUserPassword, salt);
+
+			const passwordUpdated = await user
+				.update({
+					password: newHashedPassword,
+				})
+				.then((res) => {
+					res.status(204).send('Password Updated successfully');
+				})
+				.catch((err) => res.status(400).send(err));
+		}
 	}
 };
 
@@ -143,4 +229,5 @@ module.exports = {
 	logout,
 	register,
 	getMe,
+	updateUser,
 };

@@ -1,13 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '../styles/userSettings.module.css';
 import Fade from 'react-reveal/Fade';
 import { logout } from '../features/userSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
+import UserDataModal from './UserDataModal';
+import { openModal, selectModal } from '../features/modalSlice';
 
-const UserSettings = ({ isSettingOpen }) => {
+const UserSettings = ({ isSettingOpen, setIsSettingOpen }) => {
+	// state
+	const [changeData, setChangeData] = useState('');
+
 	// redux
 	const dispatch = useDispatch();
+
+	const isModalOpen = useSelector(selectModal);
+
+	useEffect(() => {
+		if (isModalOpen) {
+			setIsSettingOpen(false);
+		}
+	}, [changeData]);
 
 	// functions
 	const signOut = () => {
@@ -21,10 +34,36 @@ const UserSettings = ({ isSettingOpen }) => {
 			{isSettingOpen && (
 				<Fade>
 					<div className={styles.userSettingsContainer}>
-						<button className={styles.btn}>Change User Name</button>
-						<button className={styles.btn}>Change User Color</button>
-						<button className={styles.btn}>Change Email</button>
-						<button className={styles.btn}>Change Password</button>
+						<button
+							className={styles.btn}
+							onClick={() => {
+								dispatch(openModal());
+								setChangeData('userName');
+							}}
+						>
+							Change User Name
+						</button>
+
+						<button
+							className={styles.btn}
+							onClick={() => {
+								dispatch(openModal());
+								setChangeData('userEmail');
+							}}
+						>
+							Change Email
+						</button>
+
+						<button
+							className={styles.btn}
+							onClick={() => {
+								dispatch(openModal());
+								setChangeData('userPassword');
+							}}
+						>
+							Change Password
+						</button>
+
 						<button className={styles.btn} onClick={signOut}>
 							Logout
 						</button>
@@ -32,6 +71,10 @@ const UserSettings = ({ isSettingOpen }) => {
 						<div className={styles.containerArrow}></div>
 					</div>
 				</Fade>
+			)}
+
+			{isModalOpen && (
+				<UserDataModal changeData={changeData} setChangeData={setChangeData} />
 			)}
 		</>
 	);

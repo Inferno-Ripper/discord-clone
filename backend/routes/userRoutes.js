@@ -4,6 +4,7 @@ const {
 	logout,
 	register,
 	getMe,
+	updateUser,
 } = require('../controllers/userController');
 const { protectRoute } = require('../middleware/authMiddleware');
 
@@ -32,5 +33,12 @@ router.post('/login', login);
 // @route   POST /user/register
 // @access  Public
 router.post('/register', register);
+
+// PUT Routes
+
+// @desc    log a user in
+// @route   PUT /user/update:field
+// @access  Private
+router.put('/update/:field', protectRoute, updateUser);
 
 module.exports = router;

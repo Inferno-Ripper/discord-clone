@@ -3,7 +3,7 @@
 	bottom: 40px;
 	right: -8px;
 	background-color: #202225;
-	z-index: 999;
+	z-index: 10;
 	display: flex;
 	flex-direction: column;
 	border-radius: 7px;
@@ -20,18 +20,25 @@
 }
 
 .btn {
-	z-index: 999;
+	z-index: 10;
 	height: 50px;
-	width: 190px;
+	width: 150px;
 	padding: 10px 20px;
 	background: transparent;
 	border: none;
 	outline: none;
 	color: white;
 	text-align: left;
-	font-size: 16px;
+	font-size: 12px;
 	cursor: pointer;
 	transition: all 250ms ease-in-out;
+}
+
+@media (min-width: 768px) {
+	.btn {
+		font-size: 16px;
+		width: 190px;
+	}
 }
 
 .btn:hover {

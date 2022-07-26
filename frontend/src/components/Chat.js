@@ -12,6 +12,7 @@ import Messages from './Messages';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from '../features/userSlice';
 import axios from 'axios';
+import { selectModal } from '../features/modalSlice';
 
 const Chat = () => {
 	const [message, setMessage] = useState('');
@@ -21,6 +22,7 @@ const Chat = () => {
 
 	const selectedChannel = useSelector(selectChannel);
 	const user = useSelector(selectUser);
+	const isModalOpen = useSelector(selectModal);
 
 	const sendMessage = (e) => {
 		e.preventDefault();
@@ -45,7 +47,7 @@ const Chat = () => {
 	};
 
 	return (
-		<div className={styles.chat}>
+		<div className={styles.chat} style={{ zIndex: isModalOpen ? -1 : 1 }}>
 			<ChatHeader />
 
 			<div className={styles.inputField}>

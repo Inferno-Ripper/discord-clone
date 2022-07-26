@@ -131,7 +131,10 @@ const Sidebar = () => {
 						onClick={() => setIsSettingOpen((prev) => !prev)}
 					/>
 
-					<UserSettings isSettingOpen={isSettingOpen} />
+					<UserSettings
+						isSettingOpen={isSettingOpen}
+						setIsSettingOpen={setIsSettingOpen}
+					/>
 				</div>
 			</div>
 		</div>

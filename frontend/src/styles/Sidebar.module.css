@@ -57,6 +57,15 @@
 	padding-top: 5px;
 }
 
+.channelAddIcon:hover {
+	background-color: #026d3d !important;
+	border-radius: 100% !important;
+}
+.channelCloseIcon:hover {
+	background-color: rgba(183, 1, 1, 0.491) !important;
+	border-radius: 100% !important;
+}
+
 /* sidebar channels */
 .channels {
 	flex: 1;
@@ -72,6 +81,47 @@
 .channels {
 	-ms-overflow-style: none; /* IE and Edge */
 	scrollbar-width: none; /* Firefox */
+}
+
+/* new channel input */
+.newChannelInput {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0 10px;
+	margin-bottom: 20px;
+}
+
+.newChannelInput > input {
+	flex: 1;
+	width: 100%;
+	background-color: #474b53;
+	border: none;
+	outline: none;
+	height: 25px;
+	padding: 0 10px;
+	color: white;
+	font-size: 14px;
+	border-top-left-radius: 7px;
+	border-bottom-left-radius: 7px;
+}
+
+.newChannelInput > button {
+	background-color: #009e57;
+	border: none;
+	width: auto;
+	height: 25px;
+	font-weight: 600;
+	color: white;
+	font-size: 11px;
+	cursor: pointer;
+	border-top-right-radius: 7px;
+	border-bottom-right-radius: 7px;
+	transition: all 250ms ease-in-out;
+}
+
+.newChannelInput > button:hover {
+	background-color: #026d3d;
 }
 
 /* sidebar info */
@@ -140,10 +190,6 @@
 }
 
 .profileLogo {
-	/* border-radius: 50%;
-	width: 30px;
-	height: 30px;
-	object-fit: contain; */
 	cursor: pointer;
 	font-size: 30px !important;
 }
@@ -196,6 +242,22 @@
 	}
 
 	/* sidebar channels */
+
+	.newChannelInput {
+		padding: 0 20px;
+	}
+
+	.newChannelInput > input {
+		height: 30px;
+		padding: 0 10px;
+		font-size: 16px;
+	}
+
+	.newChannelInput > button {
+		height: 30px;
+		padding: 0 10px;
+		font-size: 13px;
+	}
 
 	/* sidebar channels text */
 
@@ -284,6 +346,18 @@
 
 	.channelText {
 		padding: 16px;
+	}
+
+	.newChannelInput > input {
+		height: 40px;
+		padding: 0 20px;
+		font-size: 18px;
+	}
+
+	.newChannelInput > button {
+		height: 40px;
+		padding: 0 20px;
+		font-size: 16px;
 	}
 
 	/* sidebar info */

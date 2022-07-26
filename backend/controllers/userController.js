@@ -64,10 +64,10 @@ const login = async (req, res) => {
 	}
 	// if user doesn't exists send
 	else if (!user) {
-		res.status(400).send("User Doesn't Exists");
+		res.status(404).send("User Doesn't Exists");
 	} else {
 		// if password is incorrect send this
-		res.status(400).send('Invalid Credentials');
+		res.status(401).send('Invalid Credentials');
 	}
 };
 
@@ -96,6 +96,7 @@ const register = async (req, res) => {
 
 	if (userExists) {
 		res.status(400).send('User Already Exists');
+		return;
 	}
 
 	// Hash password
@@ -206,20 +207,21 @@ const updateUser = async (req, res) => {
 		);
 
 		if (!passwordMatched) {
-			res.status(400).send('Old Password Is Incorrect');
-		} else if (passwordMatched) {
+			return res.status(401).send('Old Password Is Incorrect');
+		}
+
+		if (passwordMatched) {
 			// Hash password
 			const salt = await bcrypt.genSalt(10);
 			const newHashedPassword = await bcrypt.hash(newUserPassword, salt);
 
 			const passwordUpdated = await user
-				.update({
+				.updateOne({
 					password: newHashedPassword,
 				})
-				.then((res) => {
-					res.status(204).send('Password Updated successfully');
-				})
 				.catch((err) => res.status(400).send(err));
+
+			res.status(200).send('Password Updated successfully');
 		}
 	}
 };

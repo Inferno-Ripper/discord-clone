@@ -28,7 +28,9 @@ const addChannel = async (req, res) => {
 	const channelExists = await Channel.findOne({ channel: newChannelName });
 
 	if (channelExists) {
-		res.status(400).send(`${newChannelName} Already Exists`);
+		res
+			.status(400)
+			.send(`Channel With The Name ${newChannelName} Already Exists`);
 		return;
 	}
 
@@ -52,6 +54,10 @@ const deleteChannel = async (req, res) => {
 	// find the channel name by the channel id
 	const findChannelName = await Channel.findById(channelId);
 
+	if (!findChannelName) {
+		return res.status(400).send('Channel Not Found');
+	}
+
 	// delete the channel by channel id
 	const deleteChannel = await Channel.findByIdAndDelete(channelId);
 
@@ -60,7 +66,7 @@ const deleteChannel = async (req, res) => {
 		channel: findChannelName.channel,
 	});
 
-	res.status(204);
+	res.status(200).send(`${findChannelName.channel} Channel Deleted`);
 };
 
 module.exports = {

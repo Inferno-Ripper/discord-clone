@@ -4,6 +4,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeChannel, selectChannel } from '../features/channelSlice';
+import { toast } from 'react-toastify';
 
 const Channel = ({ channelName, channelId }) => {
 	// redux
@@ -19,9 +20,16 @@ const Channel = ({ channelName, channelId }) => {
 
 	// functions
 	const deleteChannel = () => {
-		axios.delete(
-			`${process.env.REACT_APP_API_URL}/channels/delete-channel/${channelId}`
-		);
+		axios
+			.delete(
+				`${process.env.REACT_APP_API_URL}/channels/delete-channel/${channelId}`
+			)
+			.then((res) => {
+				toast.success(res.data);
+			})
+			.catch((err) => {
+				toast.error(err.request.response);
+			});
 	};
 
 	return (

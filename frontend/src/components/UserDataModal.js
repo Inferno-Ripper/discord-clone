@@ -5,6 +5,7 @@ import styles from '../styles/UserDataModal.module.css';
 import Zoom from 'react-reveal/Zoom';
 import { closeModal } from '../features/modalSlice';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const UserDataModal = ({ changeData, setChangeData }) => {
 	// state
@@ -28,14 +29,32 @@ const UserDataModal = ({ changeData, setChangeData }) => {
 
 			// change user name
 			if (changeData === 'userName') {
-				value = newUserName;
+				if (!newUserName) {
+					return;
+				}
 
+				if (newUserName === user?.userName) {
+					return toast.error(
+						'New User Name Can Not Be The Same As The Old User Name'
+					);
+				}
+
+				value = newUserName;
 				updatatedValue = 'userName';
 			}
 			// 	// change user email
 			else if (changeData === 'userEmail') {
-				value = newUserEmail;
+				if (!newUserEmail) {
+					return;
+				}
 
+				if (newUserEmail === user?.email) {
+					return toast.error(
+						'New Email Address Can Not Be The Same As The Old Email Address'
+					);
+				}
+
+				value = newUserEmail;
 				updatatedValue = 'email';
 			}
 
@@ -46,6 +65,12 @@ const UserDataModal = ({ changeData, setChangeData }) => {
 				})
 				.then((res) => {
 					dispatch(login({ ...user, [updatatedValue]: res.data }));
+					if (changeData === 'userName') {
+						toast.success('User Name Changed');
+					}
+					if (changeData === 'userEmail') {
+						toast.success('Email Address Changed');
+					}
 				});
 
 			setNewUserName('');
@@ -56,24 +81,30 @@ const UserDataModal = ({ changeData, setChangeData }) => {
 
 		// change user password
 		else if (changeData === 'userPassword') {
+			if (newUserPassword.length < 6) {
+				return toast.error('Password Must Be Longer Than 6 Characters');
+			}
+
+			if (oldUserPassword === newUserPassword) {
+				return toast.error(
+					'New Password Can Not Be The Same As The Old Password'
+				);
+			}
+
 			axios
 				.put(`${process.env.REACT_APP_API_URL}/user/update/${changeData}`, {
 					userId: user.userId,
 					oldUserPassword,
 					newUserPassword,
 				})
-				.then((res) => console.log(res))
-				.catch((err) => console.log(err.response.data));
-
-			// setNewUserPassword('');
-			// setOldUserPassword('');
+				.then((res) => toast.success(res.data))
+				.catch((err) => toast.error(err.response.data));
+			setNewUserPassword('');
+			setOldUserPassword('');
 
 			dispatch(closeModal());
 		}
 	};
-
-	console.log(oldUserPassword);
-	console.log(newUserPassword);
 
 	return (
 		<Zoom>

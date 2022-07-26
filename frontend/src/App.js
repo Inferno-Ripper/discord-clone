@@ -15,6 +15,10 @@ import {
 	useParams,
 } from 'react-router-dom';
 
+// react toastify
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 // redux
 import { login, selectUser } from './features/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -35,12 +39,28 @@ function App() {
 	useEffect(() => {
 		axios
 			.get(`${process.env.REACT_APP_API_URL}/user/me`)
-			.then((res) => dispatch(login(res.data)));
+			.then((res) => dispatch(login(res.data)))
+			.catch((err) => toast.error('Please Login Again'));
 	}, []);
 
 	return (
 		<BrowserRouter>
 			<div className={styles.app}>
+				{/* react toastify */}
+				<ToastContainer
+					theme='dark'
+					position='top-right'
+					toastStyle={{ backgroundColor: '#202225', color: 'white' }}
+					autoClose={3000}
+					hideProgressBar={false}
+					newestOnTop={false}
+					closeOnClick
+					rtl={false}
+					pauseOnFocusLoss={false}
+					draggable
+					pauseOnHover={false}
+				/>
+
 				<Routes>
 					{/* IF user data is not there display the Login Page ELSE display the Home Page */}
 					{!user ? (

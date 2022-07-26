@@ -6,6 +6,7 @@ import axios from 'axios';
 import { login } from '../features/userSlice';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import { ToastContainer, toast } from 'react-toastify';
 
 const Login = ({ rememberMe, setRememberMe }) => {
 	// state
@@ -25,12 +26,23 @@ const Login = ({ rememberMe, setRememberMe }) => {
 		e.preventDefault();
 
 		if (!userName || !email || !password || !DOBmonth || !DOBday || !DOByear) {
-			console.log('fill all fields');
+			toast.error('Please Fill All Fields');
+			return;
+		}
+
+		if (DOBmonth === 'Month' || DOBday === 'Day' || DOByear === 'Year') {
+			toast.error('Please Enter A Date Of Birth');
+			return;
+		}
+
+		// check if user is older than 5 years
+		if (DOByear > new Date().getFullYear() - 4) {
+			toast.error('You Must Be 5 Years Or Older To Create An Account');
 			return;
 		}
 
 		if (password.length < 6) {
-			console.log('Password Must Be Longer Than 6 Characters');
+			toast.error('Password Must Be Longer Than 6 Characters');
 			return;
 		}
 
@@ -62,14 +74,14 @@ const Login = ({ rememberMe, setRememberMe }) => {
 				userColor: randomColor,
 			})
 			.then((res) => dispatch(login(res.data)))
-			.catch((error) => console.log(error.response.data));
+			.catch((error) => toast.error(error.response.data));
 	};
 
 	const loginUser = (e) => {
 		e.preventDefault();
 
 		if (!email || !password) {
-			console.log('fill all fields');
+			toast.error('Please Fill All Fields');
 			return;
 		}
 
@@ -80,7 +92,7 @@ const Login = ({ rememberMe, setRememberMe }) => {
 				rememberMe,
 			})
 			.then((res) => dispatch(login(res.data)))
-			.catch((error) => console.log(error.response.data));
+			.catch((error) => toast.error(error.response.data));
 	};
 
 	return (

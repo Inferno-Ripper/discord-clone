@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../styles/Sidebar.module.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from '../features/userSlice';
 import axios from 'axios';
 import UserSettings from './UserSettings';
@@ -18,7 +18,8 @@ import HeadsetMicIcon from '@mui/icons-material/HeadsetMic';
 import SettingsIcon from '@mui/icons-material/Settings';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { toast } from 'react-toastify';
-import { selectChannel } from '../features/channelSlice';
+import { changeChannel, selectChannel } from '../features/channelSlice';
+import Welcome from './Welcome';
 
 const Sidebar = ({ socket }) => {
 	// state
@@ -28,9 +29,17 @@ const Sidebar = ({ socket }) => {
 	const [newChannelName, setNewChannelName] = useState('');
 
 	// redux
+	const dispatch = useDispatch();
+
 	const user = useSelector(selectUser);
 
 	const selectedChannel = useSelector(selectChannel);
+
+	useEffect(() => {
+		if (channels.length === 0) {
+			dispatch(changeChannel(null));
+		}
+	}, [channels]);
 
 	useEffect(() => {
 		if (socket) {
@@ -89,112 +98,122 @@ const Sidebar = ({ socket }) => {
 	};
 
 	return (
-		<div className={styles.sidebar}>
-			{/* sidebar header */}
-			<div className={styles.header}>
-				<img
-					src='./assets/discord-logo.png'
-					alt=''
-					className={styles.headerLogo}
+		<>
+			{/* welcome */}
+			{!selectedChannel && (
+				<Welcome
+					setIsSettingOpen={setIsSettingOpen}
+					setIsNewChannelInputOpen={setIsNewChannelInputOpen}
 				/>
-				<ExpandMoreIcon />
-			</div>
-			{/* sidebar channels */}
-			{/* sidebar channels text*/}
-			<div className={styles.channelText}>
-				<div className={styles.channelTextLeft}>
-					<ExpandMoreIcon /> <p>Channels</p>
-				</div>
-				<div className={styles.channelTextRight}>
-					{!isNewChannelInputOpen && (
-						<AddIcon
-							className={styles.channelAddIcon}
-							onClick={() => setIsNewChannelInputOpen(true)}
-						/>
-					)}
-					{isNewChannelInputOpen && (
-						<CloseIcon
-							className={styles.channelCloseIcon}
-							onClick={() => setIsNewChannelInputOpen(false)}
-						/>
-					)}
-				</div>
-			</div>
-
-			{/* new channel input   */}
-			{isNewChannelInputOpen && (
-				<Fade>
-					<form onSubmit={addChannel} className={styles.newChannelInput}>
-						<input
-							autoFocus
-							type='text'
-							value={newChannelName}
-							onChange={(e) => setNewChannelName(e.target.value)}
-						/>
-						<button type='submit'>Submit</button>
-					</form>
-				</Fade>
 			)}
-			{/* sidebar channels */}
-			<div className={styles.channels}>
-				{channels &&
-					channels.map(({ channel, _id: channelId }) => {
-						return (
-							<Channel
-								key={channelId}
-								channelName={channel}
-								channelId={channelId}
-								socket={socket}
-							/>
-						);
-					})}
-			</div>
-			{/* sidebar info */}
-			{/* sidebar connnection */}
-			<div className={styles.connection}>
-				<div className={styles.connectionLeft}>
-					<SignalCellularAltIcon className={styles.connectionSignalLogo} />
-					<div>
-						<p className={styles.connectionSignal}>Voice Connected</p>
-						<p className={styles.connectionLeftStreamText}>Stream</p>
-					</div>
-				</div>
-				<div className={styles.connectionRight}>
-					<InfoOutlinedIcon />
-					<PhoneIcon />
-				</div>
-			</div>
-			<div className={styles.profile}>
-				<div className={styles.profileLeft}>
-					<AccountCircleIcon
-						src={user.photo}
+
+			<div className={styles.sidebar}>
+				{/* sidebar header */}
+				<div className={styles.header}>
+					<img
+						src='./assets/discord-logo.png'
 						alt=''
-						className={styles.profileLogo}
+						className={styles.headerLogo}
 					/>
-					<div>
-						<h1 className={styles.profileLeftUserName}>{user.userName}</h1>
-						<p className={styles.profileLeftUserTag}>
-							<span>#</span>
-							{user.userTag}
-						</p>
+					<ExpandMoreIcon />
+				</div>
+				{/* sidebar channels */}
+				{/* sidebar channels text*/}
+				<div className={styles.channelText}>
+					<div className={styles.channelTextLeft}>
+						<ExpandMoreIcon /> <p>Channels</p>
+					</div>
+					<div className={styles.channelTextRight}>
+						{!isNewChannelInputOpen && (
+							<AddIcon
+								className={styles.channelAddIcon}
+								onClick={() => setIsNewChannelInputOpen(true)}
+							/>
+						)}
+						{isNewChannelInputOpen && (
+							<CloseIcon
+								className={styles.channelCloseIcon}
+								onClick={() => setIsNewChannelInputOpen(false)}
+							/>
+						)}
 					</div>
 				</div>
 
-				<div className={styles.profileRight}>
-					<MicIcon />
-					<HeadsetMicIcon />
-					<SettingsIcon
-						className={isSettingOpen && styles.settingsOpen}
-						onClick={() => setIsSettingOpen((prev) => !prev)}
-					/>
+				{/* new channel input   */}
+				{isNewChannelInputOpen && (
+					<Fade>
+						<form onSubmit={addChannel} className={styles.newChannelInput}>
+							<input
+								autoFocus
+								type='text'
+								value={newChannelName}
+								onChange={(e) => setNewChannelName(e.target.value)}
+							/>
+							<button type='submit'>Submit</button>
+						</form>
+					</Fade>
+				)}
+				{/* sidebar channels */}
+				<div className={styles.channels}>
+					{channels &&
+						channels.map(({ channel, _id: channelId }) => {
+							return (
+								<Channel
+									key={channelId}
+									channelName={channel}
+									channelId={channelId}
+									socket={socket}
+								/>
+							);
+						})}
+				</div>
+				{/* sidebar info */}
+				{/* sidebar connnection */}
+				<div className={styles.connection}>
+					<div className={styles.connectionLeft}>
+						<SignalCellularAltIcon className={styles.connectionSignalLogo} />
+						<div>
+							<p className={styles.connectionSignal}>Voice Connected</p>
+							<p className={styles.connectionLeftStreamText}>Stream</p>
+						</div>
+					</div>
+					<div className={styles.connectionRight}>
+						<InfoOutlinedIcon />
+						<PhoneIcon />
+					</div>
+				</div>
+				<div className={styles.profile}>
+					<div className={styles.profileLeft}>
+						<AccountCircleIcon
+							src={user.photo}
+							alt=''
+							className={styles.profileLogo}
+						/>
+						<div>
+							<h1 className={styles.profileLeftUserName}>{user.userName}</h1>
+							<p className={styles.profileLeftUserTag}>
+								<span>#</span>
+								{user.userTag}
+							</p>
+						</div>
+					</div>
 
-					<UserSettings
-						isSettingOpen={isSettingOpen}
-						setIsSettingOpen={setIsSettingOpen}
-					/>
+					<div className={styles.profileRight}>
+						<MicIcon />
+						<HeadsetMicIcon />
+						<SettingsIcon
+							className={isSettingOpen && styles.settingsOpen}
+							onClick={() => setIsSettingOpen((prev) => !prev)}
+						/>
+
+						<UserSettings
+							isSettingOpen={isSettingOpen}
+							setIsSettingOpen={setIsSettingOpen}
+						/>
+					</div>
 				</div>
 			</div>
-		</div>
+		</>
 	);
 };
 

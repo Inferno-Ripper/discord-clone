@@ -78,9 +78,6 @@ io.on('connection', (socket) => {
 
 	// get messages
 	socket.on('send_message', (data) => {
-		console.log('c = ' + data.channel);
-		console.log('m = ' + data.message);
-
 		io.to(data.channel).emit('receive_message', data);
 	});
 

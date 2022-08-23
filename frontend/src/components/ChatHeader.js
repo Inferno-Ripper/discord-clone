@@ -13,7 +13,6 @@ import { selectChannel } from '../features/channelSlice';
 
 const ChatHeader = () => {
 	// redux
-	const dispatch = useDispatch();
 
 	const selectedChannel = useSelector(selectChannel);
 
@@ -21,7 +20,8 @@ const ChatHeader = () => {
 		<div className={styles.chatHeader}>
 			{/* chatHeader left */}
 			<h2 className={styles.chatHeader__left}>
-				<span className={styles.chatHeader__hash}>#</span> {selectedChannel}
+				{selectedChannel && <span className={styles.chatHeader__hash}>#</span>}
+				{selectedChannel}
 			</h2>
 
 			{/* chatHeader right */}

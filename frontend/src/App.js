@@ -78,6 +78,7 @@ function App() {
 							element={
 								<>
 									<Sidebar socket={socket} />
+
 									<Chat socket={socket} />
 								</>
 							}

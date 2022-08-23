@@ -3,6 +3,7 @@ import styles from '../styles/Chat.module.css';
 import ChatHeader from './ChatHeader';
 import { selectChannel } from '../features/channelSlice';
 import uuid from 'react-uuid';
+import { Fade } from 'react-reveal';
 
 // icons
 import AddCircleIcon from '@mui/icons-material/AddCircle';
@@ -63,22 +64,24 @@ const Chat = ({ socket }) => {
 		<div className={styles.chat} style={{ zIndex: isModalOpen ? -1 : 1 }}>
 			<ChatHeader />
 
-			<div className={styles.inputField}>
-				<form className={styles.form} onSubmit={sendMessage}>
-					<AddCircleIcon style={{ fontSize: '30px' }} onClick={sendMessage} />
-					<input
-						placeholder={`Send A Message In The ${selectedChannel} Channel`}
-						className={styles.formInput}
-						disabled={selectedChannel ? false : true}
-						value={message}
-						onChange={(e) => setMessage(e.target.value)}
-					/>
-					<button type='submit' className={styles.formButton}></button>
-					<CardGiftcardIcon style={{ fontSize: '30px' }} />
-					<GifIcon style={{ fontSize: '30px' }} />
-					<EmojiEmotionsIcon style={{ fontSize: '30px' }} />
-				</form>
-			</div>
+			<Fade bottom when={selectedChannel}>
+				<div className={styles.inputField}>
+					<form className={styles.form} onSubmit={sendMessage}>
+						<AddCircleIcon style={{ fontSize: '30px' }} onClick={sendMessage} />
+						<input
+							placeholder={`Send A Message In The ${selectedChannel} Channel`}
+							className={styles.formInput}
+							disabled={selectedChannel ? false : true}
+							value={message}
+							onChange={(e) => setMessage(e.target.value)}
+						/>
+						<button type='submit' className={styles.formButton}></button>
+						<CardGiftcardIcon style={{ fontSize: '30px' }} />
+						<GifIcon style={{ fontSize: '30px' }} />
+						<EmojiEmotionsIcon style={{ fontSize: '30px' }} />
+					</form>
+				</div>
+			</Fade>
 
 			<Messages socket={socket} />
 		</div>

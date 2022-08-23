@@ -43,7 +43,7 @@ const addMessage = async (req, res) => {
 		user,
 	});
 
-	res.status(201);
+	res.status(201).send('Message Added');
 };
 
 module.exports = {

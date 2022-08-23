@@ -1,4 +1,3 @@
-const { findById } = require('../models/channelModel');
 const Channel = require('../models/channelModel');
 const Message = require('../models/messageModel');
 
@@ -10,7 +9,7 @@ const Message = require('../models/messageModel');
 const getChannels = async (req, res) => {
 	const channels = await Channel.find().select('channel');
 
-	res.send(channels);
+	return res.send(channels);
 };
 
 // POST Routes

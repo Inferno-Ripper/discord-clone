@@ -4,7 +4,7 @@
 	height: 100vh;
 	bottom: 100px;
 	overflow: scroll;
-	/* overflow-x: hidden; */
+	overflow-x: hidden;
 	display: flex;
 	flex-direction: column-reverse;
 }

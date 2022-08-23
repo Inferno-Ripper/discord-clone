@@ -1,15 +1,14 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { selectChannel } from '../features/channelSlice';
 import styles from '../styles/Messages.module.css';
 import Message from './Message';
 
-const Messages = () => {
+const Messages = ({ socket }) => {
 	const [messages, setMessages] = useState([]);
 
 	// redux
-	const dispatch = useDispatch();
 
 	const selectedChannel = useSelector(selectChannel);
 
@@ -21,9 +20,17 @@ const Messages = () => {
 		}
 	}, [selectedChannel]);
 
+	useEffect(() => {
+		socket.on('receive_message', (data) =>
+			setMessages((prev) => [data, ...prev])
+		);
+
+		return () => socket.off('receive_message');
+	}, [socket]);
+
 	return (
 		<div className={styles.messages}>
-			{messages.map(({ message, user: userFromDB, createdAt, _id }) => {
+			{messages?.map(({ message, user: userFromDB, createdAt, _id }) => {
 				return (
 					<Message
 						key={_id}

@@ -23,13 +23,15 @@ const Message = ({ message, userFromDB, createdAt }) => {
 					style={{ color: `#${userFromDB.userColor}` }}
 					className={styles.userName}
 				>
-					{userFromDB.userName}
+					{userFromDB?.userName}
 				</h4>
 
-				<p className={styles.time}>{moment(createdAt).fromNow()}</p>
+				{createdAt && (
+					<p className={styles.time}>{moment(createdAt).fromNow()}</p>
+				)}
 			</div>
 
-			<p className={styles.messageText}>{message}</p>
+			{message && <p className={styles.messageText}>{message}</p>}
 		</div>
 	);
 };

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../styles/Sidebar.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { logout, selectUser, selectUserTag } from '../features/userSlice';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../features/userSlice';
 import axios from 'axios';
 import UserSettings from './UserSettings';
 import Fade from 'react-reveal/Fade';
@@ -18,8 +18,9 @@ import HeadsetMicIcon from '@mui/icons-material/HeadsetMic';
 import SettingsIcon from '@mui/icons-material/Settings';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { toast } from 'react-toastify';
+import { selectChannel } from '../features/channelSlice';
 
-const Sidebar = () => {
+const Sidebar = ({ socket }) => {
 	// state
 	const [channels, setChannels] = useState([]);
 	const [isSettingOpen, setIsSettingOpen] = useState(false);
@@ -27,16 +28,34 @@ const Sidebar = () => {
 	const [newChannelName, setNewChannelName] = useState('');
 
 	// redux
-	const dispatch = useDispatch();
-
-	const userTag = useSelector(selectUserTag);
 	const user = useSelector(selectUser);
 
+	const selectedChannel = useSelector(selectChannel);
+
 	useEffect(() => {
-		axios
-			.get(`${process.env.REACT_APP_API_URL}/channels`)
-			.then((res) => setChannels(res.data));
+		if (socket) {
+			// trigger the function to get channels from the database
+			socket.emit('fetch_channels');
+		}
 	}, []);
+
+	useEffect(() => {
+		if (socket) {
+			// fetch all of the channels from the database
+			socket.on('get_channels', (data) => {
+				setChannels(data);
+			});
+		}
+	}, [socket]);
+
+	useEffect(() => {
+		if (selectedChannel) {
+			socket.emit('join_channel', {
+				userEmail: user.email,
+				channelName: selectedChannel,
+			});
+		}
+	}, [socket, user, selectedChannel]);
 
 	// functions
 
@@ -47,6 +66,8 @@ const Sidebar = () => {
 			toast.error('Please Add A Channel Name');
 			return;
 		}
+
+		// add new channel to the database
 		axios
 			.post(`${process.env.REACT_APP_API_URL}/channels/add`, {
 				channel: newChannelName,
@@ -56,7 +77,9 @@ const Sidebar = () => {
 				},
 			})
 			.then((res) => {
-				setChannels((prevChannels) => [...prevChannels, res.data]);
+				// after new channel is added to the database trigger the function to get all of the channels from the database
+				socket.emit('fetch_channels');
+
 				toast.success(`${res?.data.channel} Channel Created`);
 			})
 			.catch((err) => toast.error(err.response.data));
@@ -86,13 +109,13 @@ const Sidebar = () => {
 					{!isNewChannelInputOpen && (
 						<AddIcon
 							className={styles.channelAddIcon}
-							onClick={() => setIsNewChannelInputOpen((prev) => !prev)}
+							onClick={() => setIsNewChannelInputOpen(true)}
 						/>
 					)}
 					{isNewChannelInputOpen && (
 						<CloseIcon
 							className={styles.channelCloseIcon}
-							onClick={() => setIsNewChannelInputOpen((prev) => !prev)}
+							onClick={() => setIsNewChannelInputOpen(false)}
 						/>
 					)}
 				</div>
@@ -103,6 +126,7 @@ const Sidebar = () => {
 				<Fade>
 					<form onSubmit={addChannel} className={styles.newChannelInput}>
 						<input
+							autoFocus
 							type='text'
 							value={newChannelName}
 							onChange={(e) => setNewChannelName(e.target.value)}
@@ -113,15 +137,17 @@ const Sidebar = () => {
 			)}
 			{/* sidebar channels */}
 			<div className={styles.channels}>
-				{channels.map(({ channel, _id: channelId }) => {
-					return (
-						<Channel
-							key={channelId}
-							channelName={channel}
-							channelId={channelId}
-						/>
-					);
-				})}
+				{channels &&
+					channels.map(({ channel, _id: channelId }) => {
+						return (
+							<Channel
+								key={channelId}
+								channelName={channel}
+								channelId={channelId}
+								socket={socket}
+							/>
+						);
+					})}
 			</div>
 			{/* sidebar info */}
 			{/* sidebar connnection */}

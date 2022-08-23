@@ -7,13 +7,7 @@ import Login from './components/Login';
 import axios from 'axios';
 
 // react router
-import {
-	BrowserRouter,
-	Routes,
-	Route,
-	Navigate,
-	useParams,
-} from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 // react toastify
 import { ToastContainer, toast } from 'react-toastify';
@@ -23,8 +17,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import { login, selectUser } from './features/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { io } from 'socket.io-client';
 
 axios.defaults.withCredentials = true;
+
+let socket;
 
 function App() {
 	// state
@@ -35,6 +32,11 @@ function App() {
 
 	// getting the user data from redux
 	const user = useSelector(selectUser);
+
+	// socket io connection
+	useEffect(() => {
+		socket = io(process.env.REACT_APP_API_URL);
+	}, [socket]);
 
 	useEffect(() => {
 		axios
@@ -75,8 +77,8 @@ function App() {
 							path='/'
 							element={
 								<>
-									<Sidebar />
-									<Chat />
+									<Sidebar socket={socket} />
+									<Chat socket={socket} />
 								</>
 							}
 						/>

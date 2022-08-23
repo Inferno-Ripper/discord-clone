@@ -17,6 +17,7 @@ const userSlice = createSlice({
 });
 
 export const selectUser = (state) => state.user.user;
+
 export const selectUserTag = (state) => state.user.userTag;
 
 export const { login, logout } = userSlice.actions;

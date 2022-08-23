@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from '../styles/Chat.module.css';
 import ChatHeader from './ChatHeader';
 import { selectChannel } from '../features/channelSlice';
+import uuid from 'react-uuid';
 
 // icons
 import AddCircleIcon from '@mui/icons-material/AddCircle';
@@ -9,16 +10,16 @@ import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 import GifIcon from '@mui/icons-material/Gif';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import Messages from './Messages';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { selectUser } from '../features/userSlice';
 import axios from 'axios';
+
 import { selectModal } from '../features/modalSlice';
 
-const Chat = () => {
+const Chat = ({ socket }) => {
 	const [message, setMessage] = useState('');
 
 	// redux
-	const dispatch = useDispatch();
 
 	const selectedChannel = useSelector(selectChannel);
 	const user = useSelector(selectUser);
@@ -27,9 +28,7 @@ const Chat = () => {
 	const sendMessage = (e) => {
 		e.preventDefault();
 
-		if (!message || !selectedChannel || !user) {
-			return;
-		}
+		if (!message || !selectedChannel || !user) return;
 
 		axios
 			.post(`${process.env.REACT_APP_API_URL}/messages/add`, {
@@ -40,6 +39,20 @@ const Chat = () => {
 					userName: user.userName,
 					userColor: user.userColor,
 				},
+			})
+			.then((res) => {
+				socket.emit('send_message', {
+					_id: uuid(),
+					updatedAt: new Date(),
+					createdAt: new Date(),
+					channel: selectedChannel,
+					message,
+					user: {
+						userId: user.userId,
+						userName: user.userName,
+						userColor: user.userColor,
+					},
+				});
 			})
 			.catch((err) => console.log(err.response.data));
 
@@ -67,7 +80,7 @@ const Chat = () => {
 				</form>
 			</div>
 
-			<Messages />
+			<Messages socket={socket} />
 		</div>
 	);
 };

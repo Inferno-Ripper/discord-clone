@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../styles/userSettings.module.css';
 import Fade from 'react-reveal/Fade';
-import { logout, selectUser } from '../features/userSlice';
+import { logout } from '../features/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import UserDataModal from './UserDataModal';
-import { openModal, selectModal } from '../features/modalSlice';
+import { closeModal, openModal, selectModal } from '../features/modalSlice';
+import { changeChannel, selectChannel } from '../features/channelSlice';
 
 const UserSettings = ({ isSettingOpen, setIsSettingOpen }) => {
 	// state
@@ -15,13 +16,17 @@ const UserSettings = ({ isSettingOpen, setIsSettingOpen }) => {
 	const dispatch = useDispatch();
 
 	const isModalOpen = useSelector(selectModal);
-	const user = useSelector(selectUser);
+	const selectedChannel = useSelector(selectChannel);
 
 	useEffect(() => {
 		if (isModalOpen) {
 			setIsSettingOpen(false);
 		}
 	}, [changeData, isModalOpen]);
+
+	useEffect(() => {
+		dispatch(closeModal());
+	}, [selectedChannel]);
 
 	// functions
 	const signOut = () => {
@@ -62,28 +67,41 @@ const UserSettings = ({ isSettingOpen, setIsSettingOpen }) => {
 							Change User Name
 						</button>
 
+						{/* if the auth provider cookie is google then don't render the change email and password button  */}
+
+						{authProvider !== 'google' && (
+							<>
+								<button
+									className={styles.btn}
+									onClick={() => {
+										dispatch(openModal());
+										setChangeData('userEmail');
+									}}
+								>
+									Change Email
+								</button>
+
+								<button
+									className={styles.btn}
+									onClick={() => {
+										dispatch(openModal());
+										setChangeData('userPassword');
+									}}
+								>
+									Change Password
+								</button>
+							</>
+						)}
+
 						<button
 							className={styles.btn}
 							onClick={() => {
 								dispatch(openModal());
-								setChangeData('userEmail');
+								setChangeData('userColor');
 							}}
 						>
-							Change Email
+							Change User Color
 						</button>
-
-						{/* if the auth provider cookie is google then don't render the change password button */}
-						{authProvider !== 'google' && (
-							<button
-								className={styles.btn}
-								onClick={() => {
-									dispatch(openModal());
-									setChangeData('userPassword');
-								}}
-							>
-								Change Password
-							</button>
-						)}
 
 						<button className={styles.btn} onClick={signOut}>
 							Logout

@@ -42,15 +42,19 @@ const Channel = ({ socket, channelName, channelId }) => {
 			className={`${selectedChannel === channelName && styles.channelActive} ${
 				styles.channel
 			}`}
-			onClick={() => dispatch(changeChannel(channelName))}
 		>
-			<span className={styles.channel__hash}>#</span>
-			<div className={styles.container}>
-				<p className={styles.channel__name}>{channelName}</p>
-
-				<div>
-					<DeleteIcon className={styles.deleteIcon} onClick={deleteChannel} />
+			<div
+				className={styles.leftContainer}
+				onClick={() => dispatch(changeChannel(channelName))}
+			>
+				<span className={styles.channel__hash}>#</span>
+				<div className={styles.container}>
+					<p className={styles.channel__name}>{channelName}</p>
 				</div>
+			</div>
+
+			<div>
+				<DeleteIcon className={styles.deleteIcon} onClick={deleteChannel} />
 			</div>
 		</div>
 	);

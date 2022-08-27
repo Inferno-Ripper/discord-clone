@@ -6,10 +6,14 @@
 	display: flex;
 	align-items: center;
 	flex-direction: column;
-	gap: 100px;
+	gap: 50px;
 	position: fixed;
 	z-index: 9999;
 	white-space: nowrap;
+}
+
+.welcome > h1 {
+	font-size: 20px;
 }
 
 .boxContainer {
@@ -21,9 +25,9 @@
 .box {
 	display: flex;
 	justify-content: space-between;
-	width: 250px;
+	width: 200px;
 	background-color: #2f3135;
-	height: 50px;
+	height: 30px;
 	align-items: center;
 	border-radius: 7px;
 	padding: 20px;
@@ -36,13 +40,14 @@
 }
 
 .icon {
-	font-size: 30px !important;
+	font-size: 20px !important;
 }
 
 .box > p {
 	transition: all 250ms ease-in-out;
 	color: white;
 	font-weight: 500;
+	font-size: 14px;
 }
 
 .box > .arrow {
@@ -56,10 +61,24 @@
 }
 
 @media (min-width: 768px) {
+	.welcome {
+		gap: 70px;
+	}
+	.welcome > h1 {
+		font-size: 25px;
+	}
 	.box {
-		width: 400px;
-		height: 50px;
+		width: 300px;
+		height: 40px;
 		padding: 20px;
+	}
+
+	.box > p {
+		font-size: 16px;
+	}
+
+	.icon {
+		font-size: 25px !important;
 	}
 }
 
@@ -70,7 +89,20 @@
 		transform: translate(-50%, -60%);
 	}
 
+	.welcome > h1 {
+		font-size: 30px;
+	}
+
+	.box {
+		width: 400px;
+		height: 50px;
+	}
+
 	.box > p {
 		font-size: 18px;
+	}
+
+	.icon {
+		font-size: 30px !important;
 	}
 }

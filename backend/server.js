@@ -59,11 +59,13 @@ app.use('/channels', protectRoute, channelsRoutes);
 app.use('/messages', protectRoute, messagesRoutes);
 
 // database connection
-mongoose.connect(process.env.MONGO_URI, () => console.log('connected to DB'));
+mongoose.connect(process.env.MONGO_URI, () => {
+	// console.log('connected to DB');
+});
 
 // socket io
 io.on('connection', (socket) => {
-	console.log('a user has connected ' + socket.id);
+	// console.log('a user has connected ' + socket.id);
 
 	// join channel
 	socket.on('join_channel', async ({ userEmail, channelName }) => {
@@ -100,8 +102,10 @@ io.on('connection', (socket) => {
 	});
 
 	socket.on('disconnect', () => {
-		console.log('user Disconnected');
+		// console.log('user Disconnected');
 	});
 });
 
-server.listen(port, () => console.log(`listening on port ${port}`));
+server.listen(port, () => {
+	//  console.log(`listening on port ${port}`)
+});

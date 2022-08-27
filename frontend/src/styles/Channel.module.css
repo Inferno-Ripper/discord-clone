@@ -1,12 +1,19 @@
 .channel {
 	display: flex;
 	align-items: center;
+	justify-content: space-between;
 	padding: 8px 15px;
-	gap: 7px;
+	gap: 10px;
 	color: gray;
 	cursor: pointer;
 	border-top: 1px solid #2f3135;
 	border-bottom: 1px solid #2f3135;
+}
+
+.leftContainer {
+	display: flex;
+	gap: 10px;
+	flex: 1;
 }
 
 .channel:hover {
@@ -40,7 +47,7 @@
 	color: lightgray;
 	opacity: 1;
 }
-.deleteIcon:hover {
+.channel:hover .deleteIcon {
 	opacity: 1;
 	color: rgb(139, 17, 17) !important;
 }

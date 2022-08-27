@@ -4,7 +4,7 @@
 	left: 15%;
 	z-index: 999 !important;
 	width: 300px;
-	padding: 50px;
+	padding: 30px;
 	background-color: #202225;
 	border-radius: 7px;
 	color: white;
@@ -47,7 +47,7 @@
 	outline: none;
 	border-radius: 7px;
 	height: 40px;
-	width: 300px;
+	width: 80%;
 	padding: 0 20px;
 	color: white;
 	font-size: 16px;
@@ -87,4 +87,28 @@
 
 .closeBtn:hover {
 	background-color: #555659;
+}
+
+.chromePicker {
+	background-color: #363a3f !important;
+	color: white !important;
+	box-shadow: none !important;
+	border-radius: 7px !important;
+}
+
+.chromePicker input {
+	background-color: #2f3135 !important;
+	box-shadow: none !important;
+	border-radius: 7px !important;
+	color: white !important;
+}
+
+.chromePicker * svg {
+	color: white !important;
+}
+
+@media (min-width: 1280px) {
+	.chromePicker {
+		width: 100% !important;
+	}
 }

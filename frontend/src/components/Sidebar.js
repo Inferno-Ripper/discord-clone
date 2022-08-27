@@ -67,6 +67,24 @@ const Sidebar = ({ socket }) => {
 		}
 	}, [socket, user, selectedChannel]);
 
+	useEffect(() => {
+		// if the selected channel is not in channels array set selected channel to null and change the url
+		if (selectedChannel) {
+			// converting first letter to uppercase
+			const selectedChannelReformat =
+				selectedChannel.charAt(0).toUpperCase() + selectedChannel.slice(1);
+
+			const allChannels = channels.find(({ channel }) => {
+				return channel == selectedChannelReformat;
+			});
+
+			if (!allChannels) {
+				dispatch(changeChannel(null));
+				window.history.pushState('', '', '/');
+			}
+		}
+	}, [channels]);
+
 	// functions
 
 	const addChannel = (e) => {
@@ -75,6 +93,11 @@ const Sidebar = ({ socket }) => {
 		if (!newChannelName) {
 			toast.error('Please Add A Channel Name');
 			return;
+		}
+		if (newChannelName.length > 20) {
+			return toast.error(
+				'Channel Name Can Not Be Greater Than 20 characters long'
+			);
 		}
 
 		// add new channel to the database
@@ -135,7 +158,10 @@ const Sidebar = ({ socket }) => {
 						{isNewChannelInputOpen && (
 							<CloseIcon
 								className={styles.channelCloseIcon}
-								onClick={() => setIsNewChannelInputOpen(false)}
+								onClick={() => {
+									setIsNewChannelInputOpen(false);
+									setNewChannelName('');
+								}}
 							/>
 						)}
 					</div>

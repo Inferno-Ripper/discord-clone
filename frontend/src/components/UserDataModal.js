@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, selectUser } from '../features/userSlice';
 import styles from '../styles/UserDataModal.module.css';
@@ -6,11 +6,13 @@ import Zoom from 'react-reveal/Zoom';
 import { closeModal } from '../features/modalSlice';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { ChromePicker } from 'react-color';
 
 const UserDataModal = ({ changeData, setChangeData }) => {
 	// state
 	const [newUserName, setNewUserName] = useState('');
 	const [newUserEmail, setNewUserEmail] = useState('');
+	const [newUserColor, setNewUserColor] = useState('');
 	const [oldUserPassword, setOldUserPassword] = useState('');
 	const [newUserPassword, setNewUserPassword] = useState('');
 
@@ -19,11 +21,17 @@ const UserDataModal = ({ changeData, setChangeData }) => {
 
 	const user = useSelector(selectUser);
 
+	useEffect(() => setNewUserColor(user?.userColor), []);
+
 	const changeDataFunction = (e) => {
 		e.preventDefault();
 
 		// change user name or user color or user email address
-		if (changeData === 'userName' || changeData === 'userEmail') {
+		if (
+			changeData === 'userName' ||
+			changeData === 'userEmail' ||
+			changeData === 'userColor'
+		) {
 			let value;
 			let updatatedValue;
 
@@ -42,7 +50,7 @@ const UserDataModal = ({ changeData, setChangeData }) => {
 				value = newUserName;
 				updatatedValue = 'userName';
 			}
-			// 	// change user email
+			//  change user email
 			else if (changeData === 'userEmail') {
 				if (!newUserEmail) {
 					return;
@@ -56,6 +64,22 @@ const UserDataModal = ({ changeData, setChangeData }) => {
 
 				value = newUserEmail;
 				updatatedValue = 'email';
+			}
+
+			// change user color
+			if (changeData === 'userColor') {
+				if (!newUserColor) {
+					return;
+				}
+
+				if (newUserColor === user?.userColor) {
+					return toast.error(
+						'New User Color Can Not Be The Same As The Old User Color'
+					);
+				}
+
+				value = newUserColor;
+				updatatedValue = 'userColor';
 			}
 
 			axios
@@ -171,6 +195,28 @@ const UserDataModal = ({ changeData, setChangeData }) => {
 							type='password'
 							value={newUserPassword}
 							onChange={(e) => setNewUserPassword(e.target.value)}
+						/>
+
+						<button>Submit</button>
+						<h1
+							className={styles.closeBtn}
+							onClick={() => {
+								dispatch(closeModal());
+								setChangeData(null);
+							}}
+						>
+							X
+						</h1>
+					</form>
+				) : changeData === 'userColor' ? (
+					<form onSubmit={changeDataFunction}>
+						<label>Change User Color</label>
+
+						<ChromePicker
+							className={styles.chromePicker}
+							disableAlpha={true}
+							color={newUserColor}
+							onChange={(color) => setNewUserColor(color.hex)}
 						/>
 
 						<button>Submit</button>

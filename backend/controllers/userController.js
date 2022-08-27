@@ -150,7 +150,7 @@ const updateUser = async (req, res) => {
 	const { field } = req.params;
 	const { userId } = req.body;
 
-	if (field === 'userName' || field === 'userEmail') {
+	if (field === 'userName' || field === 'userEmail' || field === 'userColor') {
 		const { value } = req.body;
 
 		// change user name
@@ -190,6 +190,33 @@ const updateUser = async (req, res) => {
 					} else {
 						// send the updated user email to client
 						res.status(200).send(docs.email);
+					}
+				}
+			);
+		}
+
+		// change user color
+		else if (field === 'userColor') {
+			let newValue = value;
+
+			if (value.charAt(0) === '#') {
+				newValue = value.substring(1);
+			}
+
+			// find user by id and update the user color
+			User.findByIdAndUpdate(
+				userId,
+				{
+					userColor: newValue,
+				},
+				{ new: true },
+				(err, docs) => {
+					if (err) {
+						// if there is an error send it to the client
+						res.status(400).send(err);
+					} else {
+						// send the updated user color to client
+						res.status(200).send(docs.userColor);
 					}
 				}
 			);

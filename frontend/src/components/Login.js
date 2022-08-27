@@ -6,7 +6,7 @@ import axios from 'axios';
 import { login } from '../features/userSlice';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 const Login = ({ rememberMe, setRememberMe }) => {
 	// state
@@ -232,7 +232,10 @@ const Login = ({ rememberMe, setRememberMe }) => {
 							</button>
 
 							{/* google sign in */}
-							<a href='/auth/google' className={styles.googleLogin}>
+							<a
+								href='http://localhost:5000/auth/google'
+								className={styles.googleLogin}
+							>
 								<img
 									className={styles.googleLogo}
 									src='/assets/google-logo.png'

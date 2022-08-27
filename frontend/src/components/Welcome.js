@@ -16,7 +16,11 @@ const Welcome = ({ setIsSettingOpen, setIsNewChannelInputOpen }) => {
 	const signOut = () => {
 		dispatch(logout());
 
+		// logout by destroying/clearing the jwt cookie from browser
 		axios.get(`${process.env.REACT_APP_API_URL}/user/logout`);
+
+		// logout of google auth
+		axios.post(`${process.env.REACT_APP_API_URL}/auth/logout`);
 	};
 
 	return (

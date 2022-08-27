@@ -45,6 +45,13 @@ function App() {
 			.catch((err) => toast.error('Please Login Again'));
 	}, []);
 
+	useEffect(() => {
+		axios
+			.get(`${process.env.REACT_APP_API_URL}/auth/login`)
+			.then((res) => dispatch(login(res.data)))
+			.catch((err) => toast.error('Please Login Again'));
+	}, []);
+
 	return (
 		<BrowserRouter>
 			<div className={styles.app}>

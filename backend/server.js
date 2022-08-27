@@ -1,8 +1,10 @@
 const express = require('express');
+const session = require('express-session');
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/userRoutes');
 const channelsRoutes = require('./routes/channelsRoutes');
 const messagesRoutes = require('./routes/messagesRoutes');
+const authRoutes = require('./routes/authRoutes');
 const dotenv = require('dotenv').config();
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
@@ -11,6 +13,9 @@ const app = express();
 const http = require('http');
 const server = http.createServer(app);
 const { Server } = require('socket.io');
+const passport = require('passport');
+// passport config
+require('./passport')(passport);
 
 const io = new Server(server, {
 	cors: {
@@ -19,8 +24,8 @@ const io = new Server(server, {
 	},
 });
 
+// db models
 const Channel = require('./models/channelModel');
-const Message = require('./models/messageModel');
 
 const corsOptions = {
 	origin: true, //included origin as true
@@ -30,13 +35,26 @@ const corsOptions = {
 // server
 const port = process.env.PORT || 5000;
 
+// Sessions
+app.use(
+	session({
+		secret: process.env.GOOGLE_CLIENT_SECRET,
+		resave: false,
+		saveUninitialized: false,
+		// store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
+	})
+);
+
 // middleware
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
+app.use(passport.initialize());
+app.use(passport.session());
 
 // routes
 app.use('/user', userRoutes);
+app.use('/auth', authRoutes);
 app.use('/channels', protectRoute, channelsRoutes);
 app.use('/messages', protectRoute, messagesRoutes);
 

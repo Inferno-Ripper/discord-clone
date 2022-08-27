@@ -83,7 +83,7 @@ const Chat = ({ socket }) => {
 				</div>
 			</Fade>
 
-			<Messages socket={socket} />
+			{selectedChannel && <Messages socket={socket} />}
 		</div>
 	);
 };

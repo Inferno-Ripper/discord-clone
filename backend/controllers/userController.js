@@ -60,6 +60,7 @@ const login = async (req, res) => {
 			email: user.email,
 			userId: user._id,
 			userTag: user.userTag,
+			userColor: user.userColor,
 		});
 	}
 	// if user doesn't exists send

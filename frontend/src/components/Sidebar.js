@@ -20,6 +20,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { toast } from 'react-toastify';
 import { changeChannel, selectChannel } from '../features/channelSlice';
 import Welcome from './Welcome';
+import { selectModal } from '../features/modalSlice';
 
 const Sidebar = ({ socket }) => {
 	// state
@@ -32,8 +33,8 @@ const Sidebar = ({ socket }) => {
 	const dispatch = useDispatch();
 
 	const user = useSelector(selectUser);
-
 	const selectedChannel = useSelector(selectChannel);
+	const isModalOpen = useSelector(selectModal);
 
 	useEffect(() => {
 		if (channels.length === 0) {
@@ -81,8 +82,8 @@ const Sidebar = ({ socket }) => {
 			.post(`${process.env.REACT_APP_API_URL}/channels/add`, {
 				channel: newChannelName,
 				user: {
-					name: user.userName,
-					id: user.userId,
+					name: user?.userName,
+					id: user?.userId,
 				},
 			})
 			.then((res) => {
@@ -100,7 +101,8 @@ const Sidebar = ({ socket }) => {
 	return (
 		<>
 			{/* welcome */}
-			{!selectedChannel && (
+			{/* render welcome component only if channels is not selected and user setting model is not open */}
+			{!selectedChannel && !isModalOpen && (
 				<Welcome
 					setIsSettingOpen={setIsSettingOpen}
 					setIsNewChannelInputOpen={setIsNewChannelInputOpen}
@@ -185,15 +187,15 @@ const Sidebar = ({ socket }) => {
 				<div className={styles.profile}>
 					<div className={styles.profileLeft}>
 						<AccountCircleIcon
-							src={user.photo}
+							src={user?.photo}
 							alt=''
 							className={styles.profileLogo}
 						/>
 						<div>
-							<h1 className={styles.profileLeftUserName}>{user.userName}</h1>
+							<h1 className={styles.profileLeftUserName}>{user?.userName}</h1>
 							<p className={styles.profileLeftUserTag}>
 								<span>#</span>
-								{user.userTag}
+								{user?.userTag}
 							</p>
 						</div>
 					</div>

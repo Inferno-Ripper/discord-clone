@@ -69,4 +69,8 @@
 		top: 50%;
 		transform: translate(-50%, -60%);
 	}
+
+	.box > p {
+		font-size: 18px;
+	}
 }

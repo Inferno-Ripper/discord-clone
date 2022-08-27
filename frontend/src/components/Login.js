@@ -146,6 +146,19 @@ const Login = ({ rememberMe, setRememberMe }) => {
 					<div className={styles.login__buttonContainer}>
 						<button className={styles.login__button}>Login</button>
 
+						{/* google sign in */}
+						<a
+							href='http://localhost:5000/auth/google'
+							className={styles.googleLogin}
+						>
+							<img
+								className={styles.googleLogo}
+								src='/assets/google-logo.png'
+								alt=''
+							/>
+							<p className={styles.googleLoginText}>Continue With Google</p>
+						</a>
+
 						<p className={styles.changeMethod}>
 							Need An Account?
 							<span onClick={() => setMethod('register')}>Register</span>
@@ -217,6 +230,16 @@ const Login = ({ rememberMe, setRememberMe }) => {
 							<button className={styles.login__button} onClick={registerUser}>
 								Register
 							</button>
+
+							{/* google sign in */}
+							<a href='/auth/google' className={styles.googleLogin}>
+								<img
+									className={styles.googleLogo}
+									src='/assets/google-logo.png'
+									alt=''
+								/>
+								<p className={styles.googleLoginText}>Continue With Google</p>
+							</a>
 
 							<p className={styles.changeMethod}>
 								Already Have An Account?

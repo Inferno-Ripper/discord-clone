@@ -31,6 +31,10 @@ const Channel = ({ socket, channelName, channelId }) => {
 			.catch((err) => {
 				toast.error(err);
 			});
+
+		dispatch(changeChannel(null));
+
+		window.history.pushState('', '', '/');
 	};
 
 	return (

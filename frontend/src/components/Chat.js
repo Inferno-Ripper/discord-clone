@@ -67,7 +67,7 @@ const Chat = ({ socket }) => {
 			<Fade bottom when={selectedChannel}>
 				<div className={styles.inputField}>
 					<form className={styles.form} onSubmit={sendMessage}>
-						<AddCircleIcon style={{ fontSize: '30px' }} onClick={sendMessage} />
+						<AddCircleIcon style={{ fontSize: '25px' }} onClick={sendMessage} />
 						<input
 							placeholder={`Send A Message In The ${selectedChannel} Channel`}
 							className={styles.formInput}
@@ -76,9 +76,9 @@ const Chat = ({ socket }) => {
 							onChange={(e) => setMessage(e.target.value)}
 						/>
 						<button type='submit' className={styles.formButton}></button>
-						<CardGiftcardIcon style={{ fontSize: '30px' }} />
-						<GifIcon style={{ fontSize: '30px' }} />
-						<EmojiEmotionsIcon style={{ fontSize: '30px' }} />
+						<CardGiftcardIcon style={{ fontSize: '20px' }} />
+						<GifIcon style={{ fontSize: '20px' }} />
+						<EmojiEmotionsIcon style={{ fontSize: '20px' }} />
 					</form>
 				</div>
 			</Fade>

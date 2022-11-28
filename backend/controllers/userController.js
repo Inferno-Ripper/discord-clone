@@ -35,7 +35,11 @@ const login = async (req, res) => {
 	const { email, password, rememberMe } = req.body;
 
 	// Check if user exists
-	const user = await User.findOne({ email });
+	let user = null;
+
+	if (email) {
+		user = await User.findOne({ email });
+	}
 
 	// compare passwords and if it's correct send the user data to client
 	if (user && (await bcrypt.compare(password, user.password))) {
@@ -55,7 +59,7 @@ const login = async (req, res) => {
 		// send the jwt in a cookie to client
 		res.cookie('jwt', token, cookieOptions);
 
-		res.status(201).json({
+		res.status(200).json({
 			userName: user.userName,
 			email: user.email,
 			userId: user._id,
@@ -93,7 +97,12 @@ const register = async (req, res) => {
 	}
 
 	// Check if user already exists
-	const userExists = await User.findOne({ email });
+	// Check if user exists
+	let userExists = null;
+
+	if (email) {
+		userExists = await User.findOne({ email });
+	}
 
 	if (userExists) {
 		res.status(400).send('User Already Exists');

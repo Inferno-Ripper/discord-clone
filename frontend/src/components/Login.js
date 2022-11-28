@@ -104,7 +104,7 @@ const Login = ({ rememberMe, setRememberMe }) => {
 			/>
 			{method === 'login' ? (
 				// login
-				<form className={styles.form} onSubmit={loginUser}>
+				<form className={styles.form}>
 					<h1>Welcome Back!</h1>
 
 					<div className={styles.inputAndLabel}>
@@ -144,7 +144,13 @@ const Login = ({ rememberMe, setRememberMe }) => {
 					</div>
 
 					<div className={styles.login__buttonContainer}>
-						<button className={styles.login__button}>Login</button>
+						<button
+							className={styles.login__button}
+							onClick={loginUser}
+							type='submit'
+						>
+							Login
+						</button>
 
 						{/* google sign in */}
 						<a
@@ -227,7 +233,11 @@ const Login = ({ rememberMe, setRememberMe }) => {
 						</div>
 
 						<div className={styles.login__buttonContainer}>
-							<button className={styles.login__button} onClick={registerUser}>
+							<button
+								className={styles.login__button}
+								type='submit'
+								onClick={registerUser}
+							>
 								Register
 							</button>
 

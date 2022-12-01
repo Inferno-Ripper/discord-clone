@@ -18,7 +18,7 @@ router.get(
 router.get(
 	'/google/callback',
 	passport.authenticate('google', {
-		successRedirect: 'http://localhost:3000',
+		successRedirect: 'https://inferno-ripper-discord-clone.vercel.app',
 		failureRedirect: '/login',
 	})
 );
@@ -74,13 +74,15 @@ router.get('/login', async (req, res) => {
 				// send the jwt in a cookie to client
 				res.cookie('jwt', token, {
 					httpOnly: true,
-					// secure: true,
+					secure: true,
+					sameSite: 'none',
 				});
 
 				// send the auth provider in a cookie to client
 				res.cookie('auth-provider', 'google', {
-					// httpOnly: true,
-					// secure: true,
+					httpOnly: true,
+					secure: true,
+					sameSite: 'none',
 				});
 
 				res.status(201).json({
@@ -107,13 +109,15 @@ router.get('/login', async (req, res) => {
 				// send the jwt in a cookie to client
 				res.cookie('jwt', token, {
 					httpOnly: true,
-					// secure: true,
+					secure: true,
+					sameSite: 'none',
 				});
 
 				// send the auth provider in a cookie to client
 				res.cookie('auth-provider', 'google', {
-					// httpOnly: true,
-					// secure: true,
+					httpOnly: true,
+					secure: true,
+					sameSite: 'none',
 				});
 
 				res.status(201).json({

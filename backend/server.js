@@ -19,7 +19,7 @@ require('./passport')(passport);
 
 const io = new Server(server, {
 	cors: {
-		origin: 'http://localhost:3000',
+		origin: process.env.ORIGIN_URL,
 		methods: ['GET', 'POST'],
 	},
 });
@@ -28,8 +28,12 @@ const io = new Server(server, {
 const Channel = require('./models/channelModel');
 
 const corsOptions = {
-	origin: true, //included origin as true
-	credentials: true, //included credentials as true
+	origin: process.env.ORIGIN_URL,
+	'Access-Control-Allow-Origin': process.env.ORIGIN_URL,
+	credentials: true,
+	methods: ['GET', 'POST', 'HEAD', 'PUT', 'PATCH', 'DELETE'],
+	allowedHeaders: ['Content-Type'],
+	exposedHeaders: ['Content-Type'],
 };
 
 // server

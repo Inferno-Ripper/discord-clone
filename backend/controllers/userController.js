@@ -48,7 +48,8 @@ const login = async (req, res) => {
 
 		const cookieOptions = {
 			httpOnly: true,
-			// secure: true,
+			secure: true,
+			sameSite: 'none',
 		};
 
 		if (rememberMe) {
@@ -129,7 +130,8 @@ const register = async (req, res) => {
 
 		const cookieOptions = {
 			httpOnly: true,
-			// secure: true,
+			secure: true,
+			sameSite: 'none',
 		};
 
 		if (rememberMe) {

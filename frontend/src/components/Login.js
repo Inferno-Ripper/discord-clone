@@ -154,7 +154,7 @@ const Login = ({ rememberMe, setRememberMe }) => {
 
 						{/* google sign in */}
 						<a
-							href='http://localhost:5000/auth/google'
+							href='https://discord-clone-backend.up.railway.app/auth/google'
 							className={styles.googleLogin}
 						>
 							<img
@@ -243,7 +243,7 @@ const Login = ({ rememberMe, setRememberMe }) => {
 
 							{/* google sign in */}
 							<a
-								href='http://localhost:5000/auth/google'
+								href='https://discord-clone-backend.up.railway.app/auth/google'
 								className={styles.googleLogin}
 							>
 								<img
